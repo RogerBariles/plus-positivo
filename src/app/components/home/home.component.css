@@ -1,0 +1,20 @@
+#btnSerch {
+    background-color:  rgb(19, 19, 155);
+    width: 80;
+    height: 45;
+    border-radius: 5;
+    color: white;
+}
+
+GridLayout {
+    margin-top: 5;
+}
+
+ActionBar {
+    background-color:  rgb(19, 19, 155);
+    color: white;
+}
+
+.fas {
+    color: tomato;
+}

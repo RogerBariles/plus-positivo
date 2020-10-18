@@ -1,0 +1,39 @@
+<ActionBar title="Inicio de Sesión">
+</ActionBar>
+
+<GridLayout class="fondo">
+  <StackLayout class="form" [formGroup]="formLogin">
+    <TextField
+      class="inputLogin"
+      formControlName="username"
+      hint="Usuario"
+      secure="false"
+      maxLength="10"
+    >
+    </TextField>
+    <label
+      class="text"
+      text="Campo Requerido"
+      *ngIf="!this.formLogin.get('username').valid"
+    >
+    </label>
+    <TextField
+      class="inputLogin"
+      formControlName="password"
+      hint="Contraseña"
+      secure="true"
+      autocorrect="false"
+      maxLength="10"
+    >
+    </TextField>
+    <label
+      class="text"
+      text="Campo Requerido"
+      *ngIf="!this.formLogin.get('password').valid"
+    >
+    </label>
+
+    <Button id="BtnLogin" text="Ingresar" (tap)="getIn()"> <i class="fas fa-bars"></i></Button>
+
+  </StackLayout>
+</GridLayout>
