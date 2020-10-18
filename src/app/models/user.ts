@@ -1,4 +1,5 @@
-export class Users {
-    name: string;
+export interface Users {
+    username: string;
+    rememberMe: boolean;
     password: string;
 }

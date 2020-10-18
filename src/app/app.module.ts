@@ -1,11 +1,20 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
-import { NativeScriptModule } from "@nativescript/angular";
+import { NativeScriptFormsModule, NativeScriptHttpClientModule, NativeScriptModule } from "@nativescript/angular";
 
 import { AppRoutingModule } from "./app-routing.module";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+
+//---------- Services
+//import { AuthHttpInterceptor } from '../app/services/auth-http.interceptor';
+import { AuthenticationService } from '../app/services/authentication.service';
+import { ReactiveFormsModule } from "@angular/forms";
+
+
+//------- Components
+import { HomeComponent } from "./components/home/home.component";
 import { AppComponent } from "./app.component";
-import { ItemsComponent } from "./item/items.component";
-import { ItemDetailComponent } from "./item/item-detail.component";
 import { LoginComponent } from './components/authentication/login/login.component'
+import { PersonaComponent } from './components/persona/persona.component'
 
 @NgModule({
     bootstrap: [
@@ -13,15 +22,26 @@ import { LoginComponent } from './components/authentication/login/login.componen
     ],
     imports: [
         NativeScriptModule,
-        AppRoutingModule
+        AppRoutingModule,
+        NativeScriptFormsModule,
+        ReactiveFormsModule,
+        NativeScriptHttpClientModule    
     ],
     declarations: [
         AppComponent,
-        ItemsComponent,
-        ItemDetailComponent,
-        LoginComponent
+        LoginComponent,
+        HomeComponent,
+        PersonaComponent
+        
     ],
-    providers: [],
+    providers: [
+        // {
+        //     provide: HTTP_INTERCEPTORS,
+        //     useClass: AuthHttpInterceptor,
+        //     multi: true,
+        // },
+        AuthenticationService
+    ],
     schemas: [
         NO_ERRORS_SCHEMA
     ]
