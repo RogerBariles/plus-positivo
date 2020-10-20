@@ -1,10 +1,37 @@
 <ActionBar title="">
-    <ActionItem icon="res://menu" class="fas" ios.position="left"></ActionItem>
-    <!-- <NavigationButton icon="res://menu"></NavigationButton> -->
+  <ActionItem icon="res://menu" class="fas" ios.position="left"></ActionItem>
+  <!-- <NavigationButton icon="res://menu"></NavigationButton> -->
 </ActionBar>
 
 <GridLayout rows="auto,*" columns="2*,*">
-  <TextField row="0" col="0" hint="Buscar Persona"> </TextField>
+  <TextField
+    row="0"
+    col="0"
+    hint="Buscar Persona (Por apellido)"
+    [(ngModel)]="personsFilter"
+  ></TextField>
+  <Button
+    id="btnSerch"
+    row="0"
+    col="1"
+    text="Búscar"
+    (tap)="applyFIlter()"
+  ></Button>
+</GridLayout>
 
-  <Button id="btnSerch" row="0" col="1" text="Búscar"></Button>
+<GridLayout class="home">
+  <ActivityIndicator [busy]="spinner"></ActivityIndicator>
+  <label *ngIf="filterNot" class="notFilter" text="No hay datos encontrados" textAlignment="center"></label>
+  <GridLayout *ngIf="loadPeople" id="headerMenu" rows="auto,*" columns="2*,*">
+    <label row="0" col="0" class="text titleTable" text="Apellido"> </label>
+    <label row="0" col="1" class="text titleTable" style="margin-left: 30;" text="Editar"> </label>
+  </GridLayout>
+  <ListView *ngIf="loadPeople" [items]="filterPeople" separatorColor="transparent">
+    <ng-template let-item="people" let-i="index">
+      <GridLayout rows="auto,*" columns="2*,*">
+        <label row="0" col="0" class="text" text="{{filterPeople[i].apellidosPrs}}"> </label>
+        <Image  row="0" col="1" src="res://pen"></Image>
+      </GridLayout>
+    </ng-template>
+  </ListView>
 </GridLayout>

@@ -1,12 +1,9 @@
+import { Token } from '../../../models/user';
 import { Component, OnInit } from "@angular/core";
-import {
-    FormControl,
-    FormGroup,
-    Validators,
-} from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { setString } from "@nativescript/core/application-settings";
 import { AuthenticationService } from "../../../services/authentication.service";
-
 
 @Component({
     selector: "ns-login",
@@ -14,11 +11,15 @@ import { AuthenticationService } from "../../../services/authentication.service"
     styleUrls: ["./login.component.css"],
 })
 export class LoginComponent implements OnInit {
-    
+
+    spinner: boolean;
     formLogin: FormGroup;
 
-    constructor(private authService: AuthenticationService,
-        private router: Router) {
+    constructor(
+        private authService: AuthenticationService,
+        private router: Router
+    ) {
+        this.spinner = false;
     }
 
     ngOnInit() {
@@ -40,16 +41,31 @@ export class LoginComponent implements OnInit {
     }
 
     getIn() {
+        this.spinner = true;
         if (this.formLogin.valid) {
-            this.router.navigate(['/home/', this.formLogin.get('username').value]);
-            this.authService.loguin(this.formLogin).subscribe((resp) => {
-                this.authService.idToken = resp;
-                console.log(this.authService.idToken);
-            });
-        } else {
-            
-        }
+            this.authService.loguin(this.formLogin).subscribe(
+                (resp: Token) => {
+                    setString('token', resp.id_token);
+                    this.spinner = false;
+                    this.router.navigate([
+                        "/home/",
+                        this.formLogin.get("username").value,
+                    ]);
+                },
+                (error) => {
+                    this.formLogin.get('username').setValue('');
+                    this.formLogin.get('password').setValue('');
 
-        
+                    let options = {
+                        title: "Credenciales Incorrectas",
+                        message: "Usuarios/contraseña incorrecto.",
+                        okButtonText: "OK"
+                    };
+                    
+                    alert(options);
+                    this.spinner = false;
+                }
+            );
+        }
     }
 }

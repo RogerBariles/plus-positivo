@@ -5,9 +5,10 @@ import { AppRoutingModule } from "./app-routing.module";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 
 //---------- Services
-//import { AuthHttpInterceptor } from '../app/services/auth-http.interceptor';
+import { AuthHttpInterceptor } from '../app/services/auth-http.interceptor';
 import { AuthenticationService } from '../app/services/authentication.service';
 import { ReactiveFormsModule } from "@angular/forms";
+import { PersonsService } from '../app/services/persons.service';
 
 
 //------- Components
@@ -35,12 +36,13 @@ import { PersonaComponent } from './components/persona/persona.component'
         
     ],
     providers: [
-        // {
-        //     provide: HTTP_INTERCEPTORS,
-        //     useClass: AuthHttpInterceptor,
-        //     multi: true,
-        // },
-        AuthenticationService
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthHttpInterceptor,
+            multi: true,
+        },
+        AuthenticationService,
+        PersonsService
     ],
     schemas: [
         NO_ERRORS_SCHEMA

@@ -2,7 +2,9 @@
 </ActionBar>
 
 <GridLayout class="fondo">
-  <StackLayout class="form" [formGroup]="formLogin">
+  <ActivityIndicator [busy]="spinner"></ActivityIndicator>
+
+  <StackLayout *ngIf="!spinner" class="form" [formGroup]="formLogin">
     <TextField
       class="inputLogin"
       formControlName="username"
@@ -33,7 +35,7 @@
     >
     </label>
 
-    <Button id="BtnLogin" text="Ingresar" (tap)="getIn()"> <i class="fas fa-bars"></i></Button>
+    <Button id="BtnLogin" text="Ingresar" (tap)="getIn()"></Button>
 
   </StackLayout>
 </GridLayout>

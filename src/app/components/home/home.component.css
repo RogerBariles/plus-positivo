@@ -1,20 +1,53 @@
 #btnSerch {
-    background-color:  rgb(19, 19, 155);
-    width: 80;
-    height: 45;
-    border-radius: 5;
-    color: white;
+  background-color: rgb(19, 19, 155);
+  width: 80;
+  height: 45;
+  border-radius: 5;
+  color: white;
 }
 
 GridLayout {
-    margin-top: 5;
+  margin-top: 5;
 }
 
 ActionBar {
-    background-color:  rgb(19, 19, 155);
-    color: white;
+  background-color: rgb(19, 19, 155);
+  color: white;
 }
 
 .fas {
-    color: tomato;
+  color: tomato;
+}
+
+ListView {
+  margin-top: 30;
+}
+
+#btnEdit {
+  background-color: green;
+  border-radius: 20;
+  width: 40;
+  margin-left: 10;
+}
+
+Image {
+  width: 20;
+  height: 25;
+}
+
+#headerMenu {
+  margin-left: 35;
+}
+
+.titleTable {
+    font-weight: bold;
+}
+
+.home {
+    margin-top: 60;
+}
+
+.notFilter {
+    color: red;
+    
 }

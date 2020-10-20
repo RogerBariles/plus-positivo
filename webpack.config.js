@@ -387,7 +387,10 @@ module.exports = env => {
         'global.TNS_WEBPACK': 'true',
         'global.isAndroid': platform === 'android',
         'global.isIOS': platform === 'ios',
-        process: 'global.process'
+        process: 'global.process',
+        "process.env": {
+          environment: (env && Object.prototype.hasOwnProperty.call(env, 'environment')) ? JSON.stringify(env.environment) : undefined
+        }
       }),
       // Remove all files from the out dir.
       new CleanWebpackPlugin({ 
