@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { PersonsService } from "../../services/persons.service";
 import { People } from "../../models/people";
+import { Router } from "@angular/router";
 @Component({
     selector: "ns-home",
     templateUrl: "./home.component.html",
@@ -13,7 +14,10 @@ export class HomeComponent implements OnInit {
     filterPeople: People[];
     filterNot: boolean;
 
-    constructor(private personsService: PersonsService) {
+    constructor(
+        private personsService: PersonsService,
+        private router: Router
+    ) {
         this.spinner = false;
         this.loadPeople = false;
         this.filterNot = false;
@@ -25,8 +29,7 @@ export class HomeComponent implements OnInit {
         this.spinner = true;
         this.personsService.getAllPersonas(this.personsFilter).subscribe(
             (resp: People[]) => {
-
-                if(resp.length != 0) {
+                if (resp.length != 0) {
                     this.filterPeople = resp;
                     this.filterNot = false;
                     this.spinner = false;
@@ -36,9 +39,12 @@ export class HomeComponent implements OnInit {
                     this.filterNot = true;
                     this.spinner = false;
                 }
-
             },
             (error) => {}
         );
+    }
+
+    selectPerson(index) {
+        this.router.navigate(['/persona/', this.filterPeople[index].id]);
     }
 }

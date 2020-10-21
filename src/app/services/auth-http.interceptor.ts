@@ -26,8 +26,7 @@ export class AuthHttpInterceptor implements HttpInterceptor {
             const headers = req.headers.delete(InterceptorSkipHeader);
             return next.handle(req.clone({ headers }));
         }
-        console.log("TOKEN:", token);
-        console.log("REQUEST:", req);
+
         // if (!req || !req.url || req.url.startsWith("http")) {
         //     console.log("request vacio o url incorrecta:", req, req.url);
         //     return next.handle(req);
@@ -35,7 +34,7 @@ export class AuthHttpInterceptor implements HttpInterceptor {
         //     console.log("request correcta:", req);
         // }
 
-        console.log("TOKEN:", token);
+
         if (token) {
             req = req.clone({
                 setHeaders: {
@@ -45,7 +44,6 @@ export class AuthHttpInterceptor implements HttpInterceptor {
         } else {
             console.log("TOKEN VACIO:", req);
         }
-        console.log("REQUEST WITH HEADER:", req);
         return next.handle(req);
     }
 }

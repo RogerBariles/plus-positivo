@@ -26,11 +26,11 @@
     <label row="0" col="0" class="text titleTable" text="Apellido"> </label>
     <label row="0" col="1" class="text titleTable" style="margin-left: 30;" text="Editar"> </label>
   </GridLayout>
-  <ListView *ngIf="loadPeople" [items]="filterPeople" separatorColor="transparent">
+  <ListView *ngIf="loadPeople" [items]="filterPeople" separatorColor="transparent" >
     <ng-template let-item="people" let-i="index">
       <GridLayout rows="auto,*" columns="2*,*">
-        <label row="0" col="0" class="text" text="{{filterPeople[i].apellidosPrs}}"> </label>
-        <Image  row="0" col="1" src="res://pen"></Image>
+        <label (tap)="selectPerson(i)" row="0" col="0" class="text" text="{{filterPeople[i].apellidosPrs}}"> </label>
+        <Image (tap)="selectPerson(i)" row="0" col="1" src="res://pen"></Image>
       </GridLayout>
     </ng-template>
   </ListView>

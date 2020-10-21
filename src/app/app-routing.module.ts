@@ -5,6 +5,7 @@ import { NativeScriptRouterModule } from "@nativescript/angular";
 
 import { LoginComponent } from "./components/authentication/login/login.component";
 import { HomeComponent } from './components/home/home.component'
+import { PersonaComponent } from "./components/persona/persona.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "/login", pathMatch: "full" },
@@ -15,6 +16,10 @@ const routes: Routes = [
     {
         path:"home/:{user}",
         component: HomeComponent
+    },
+    {
+        path:'persona/:idPersona',
+        component: PersonaComponent
     }
 ];
 
