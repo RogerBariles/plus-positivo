@@ -15,8 +15,33 @@ export class People extends Users {
     puesto: Puesto;
 }
 
-export class Tipo {}
+export class TipoOrg {
+    abrevTpOrg: string;
+    codigoTpOrg: string;
+    descTpOrg: string;
+    id: number
+}
 
-export class Organizacion {}
+export class Tipo {
+    abrevTpPrs: string;
+    codigoTpPrs: string;
+    descTpPrs: string;
+    id: number
+}
 
-export class Puesto {}
+export class Organizacion {
+    abrevOrg: string;
+    codigoOrg: string;
+    descOrg: string;
+    id: number;
+    tipo: TipoOrg;
+}
+
+export class Puesto {
+    abrevPue: string;
+    codigoPue: string;
+    descPue: string;
+    finPue: Date;
+    id: number;
+    inicioPue: Date;
+}

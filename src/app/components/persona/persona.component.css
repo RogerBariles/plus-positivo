@@ -1,0 +1,27 @@
+ActionBar {
+    background-color:  rgb(19, 19, 155);
+    font-size: 12;
+    color: white;
+}
+
+#imagePrs {
+    width: 40%;
+    height: 40%;
+}
+
+#textHeader {
+    margin-top: 30;
+    font-size: 17;
+    font-weight: bold;
+}
+
+.textScrollArea {
+    margin-top: 10;
+    margin-left: 15;
+}
+
+#btnSave {
+    background-color: green;
+    color: white;
+    font-weight: bold;
+}

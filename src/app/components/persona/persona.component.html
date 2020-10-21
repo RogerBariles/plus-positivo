@@ -1,3 +1,40 @@
-<GridLayout>
-    <label text="hola {{idPersonSelect}}"></label>
-</GridLayout>
+<ActionBar title="Detalles">
+  <ActionItem icon="res://menu" class="fas" ios.position="left"></ActionItem>
+  <!-- <NavigationButton icon="res://menu"></NavigationButton> -->
+</ActionBar>
+
+<ActivityIndicator [busy]="spinner"></ActivityIndicator>
+<ScrollView orientation="vertical" row="1" col="0" height="auto" width="auto">
+  <GridLayout columns="*" rows="auto,*">
+    <GridLayout columns="*,2*" rows="auto,3*" width="500">
+      <Image row="0" col="0" id="imagePrs" src="{{ people?.imagenPrs }}"></Image>
+      <label
+        row="0"
+        col="1"
+        id="textHeader"
+        text="{{ people?.apellidosPrs }}"
+      ></label>
+    </GridLayout>
+
+    <GridLayout row="1" col="0">
+      <FlexboxLayout flexDirection="column">
+        <label class="textScrollArea" text="Agregar Descripción:"></label>
+        <ScrollView
+          orientation="vertical"
+          row="1"
+          col="0"
+          height="auto"
+          width="auto"
+        >
+          <TextView
+            text="{{ people?.tipo.descTpPrs }}"
+            returnKeyType="done"
+            autocorrect="false"
+          >
+          </TextView>
+        </ScrollView>
+        <Button id="btnSave" text="Guardar"></Button>
+      </FlexboxLayout>
+    </GridLayout>
+  </GridLayout>
+</ScrollView>
