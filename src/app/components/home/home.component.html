@@ -29,7 +29,7 @@
   <ListView *ngIf="loadPeople" [items]="filterPeople" separatorColor="transparent" >
     <ng-template let-item="people" let-i="index">
       <GridLayout rows="auto,*" columns="2*,*">
-        <label (tap)="selectPerson(i)" row="0" col="0" class="text" text="{{filterPeople[i].apellidosPrs}}"> </label>
+        <label  row="0" col="0" class="text" text="{{filterPeople[i]?.apellidosPrs}}"> </label>
         <Image (tap)="selectPerson(i)" row="0" col="1" src="res://pen"></Image>
       </GridLayout>
     </ng-template>

@@ -9,7 +9,7 @@ import { PersonsService } from "../../services/persons.service";
     styleUrls: ["./persona.component.css"],
 })
 export class PersonaComponent implements OnInit {
-
+    
     spinner: boolean;
     idPersonSelect: number;
     people: People;
@@ -31,7 +31,11 @@ export class PersonaComponent implements OnInit {
             .getPeopleById(this.idPersonSelect)
             .subscribe((resp: People) => {
                 this.people = resp;
-                this.people.imagenPrs ='data:'+ resp.imagenPrsContentType + ';base64,' + resp.imagenPrs;
+                this.people.imagenPrs =
+                    "data:" +
+                    resp.imagenPrsContentType +
+                    ";base64," +
+                    resp.imagenPrs;
                 this.spinner = false;
             });
     }

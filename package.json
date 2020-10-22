@@ -32,10 +32,12 @@
     "@angular/platform-browser": "~10.1.0",
     "@angular/platform-browser-dynamic": "~10.1.0",
     "@angular/router": "~10.1.0",
+    "@nativescript-community/ui-material-snackbar": "^5.0.25",
     "@nativescript/angular": "~10.1.0",
     "@nativescript/core": "~7.0.0",
     "@nativescript/theme": "~2.3.0",
     "nativescript-dev-appconfig": "^1.0.2",
+    "nativescript-star-ratings": "^1.0.0",
     "reflect-metadata": "~0.1.12",
     "rxjs": "^6.6.0",
     "zone.js": "~0.11.1"

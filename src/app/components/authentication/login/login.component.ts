@@ -1,17 +1,17 @@
-import { Token } from '../../../models/user';
+import { Token } from "../../../models/user";
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { setString } from "@nativescript/core/application-settings";
 import { AuthenticationService } from "../../../services/authentication.service";
-
+import { SnackBar } from "@nativescript-community/ui-material-snackbar";
 @Component({
     selector: "ns-login",
     templateUrl: "./login.component.html",
     styleUrls: ["./login.component.css"],
 })
 export class LoginComponent implements OnInit {
-
+    snackbar = new SnackBar();
     spinner: boolean;
     formLogin: FormGroup;
 
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
         if (this.formLogin.valid) {
             this.authService.loguin(this.formLogin).subscribe(
                 (resp: Token) => {
-                    setString('token', resp.id_token);
+                    setString("token", resp.id_token);
                     this.spinner = false;
                     this.router.navigate([
                         "/home/",
@@ -53,19 +53,31 @@ export class LoginComponent implements OnInit {
                     ]);
                 },
                 (error) => {
-                    this.formLogin.get('username').setValue('');
-                    this.formLogin.get('password').setValue('');
-
-                    let options = {
-                        title: "Credenciales Incorrectas",
-                        message: "Usuarios/contraseña incorrecto.",
-                        okButtonText: "OK"
-                    };
-                    
-                    alert(options);
-                    this.spinner = false;
+                    this.formLogin.get("username").setValue("");
+                    this.formLogin.get("password").setValue("");
+                    // let options = {
+                    //     title: "Credenciales Incorrectas",
+                    //     message: "Usuarios/contraseña incorrecto.",
+                    //     okButtonText: "OK"
+                    // };
+                    // alert(options);
+                    this.showSimpleSnackbar();
                 }
             );
         }
+    }
+    showSimpleSnackbar() {
+        this.snackbar
+            .action({
+                message: `Credenciales Incorrectas`,
+                textColor: "white",
+                actionTextColor: "red",
+                backgroundColor: "black",
+                actionText: "Error",
+                hideDelay: 2000,
+            })
+            .then((resp) => {
+                this.spinner = false;
+            });
     }
 }

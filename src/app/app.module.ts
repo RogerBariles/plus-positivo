@@ -17,22 +17,24 @@ import { AppComponent } from "./app.component";
 import { LoginComponent } from './components/authentication/login/login.component'
 import { PersonaComponent } from './components/persona/persona.component'
 
+
 @NgModule({
     bootstrap: [
-        AppComponent
+        AppComponent,
     ],
     imports: [
         NativeScriptModule,
         AppRoutingModule,
         NativeScriptFormsModule,
         ReactiveFormsModule,
-        NativeScriptHttpClientModule    
+        NativeScriptHttpClientModule,
+
     ],
     declarations: [
         AppComponent,
         LoginComponent,
         HomeComponent,
-        PersonaComponent
+        PersonaComponent,
         
     ],
     providers: [
