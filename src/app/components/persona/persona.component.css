@@ -1,7 +1,7 @@
 ActionBar {
-    background-color:  rgb(19, 19, 155);
+    background-color:  #32383e;
     font-size: 12;
-    color: white;
+    color: #ffc000;
 }
 
 #imagePrs {
@@ -9,19 +9,35 @@ ActionBar {
     height: 40%;
 }
 
-#textHeader {
+#textHeaderApe {
     margin-top: 30;
     font-size: 17;
     font-weight: bold;
+    color: white;
+}
+
+#textHeaderNom {
+    font-size: 17;
+    color: white;
 }
 
 .textScrollArea {
     margin-top: 10;
     margin-left: 15;
+    color: white;
 }
 
 #btnSave {
-    background-color: green;
-    color: white;
+    background-color: #ffc000;
+    color: black;
     font-weight: bold;
+}
+
+#descripcion {
+    background-color: #32383e;
+}
+
+TextView {
+    background-color: white;
+    border-radius: 15;
 }

@@ -1,40 +1,49 @@
 #BtnLogin {
-    background: rgb(19, 19, 155);
-    color: white;
-    border-radius: 5;
-    font-size: 15;
-    width: 150;
-    height: 40;
-    margin-top: 30;
+  background: #ff9933;
+  color: black;
+  border-radius: 5;
+  font-size: 15;
+  width: 300;
+  height: 40;
+  margin-top: 30;
 }
 
 .inputLogin {
-    width: 250;
-    margin-top: 15;
+  width: 250;
+  color: white;
 }
 
 .text {
-    color: red;
-    font-size: 9;
-    margin-left: 40;
+  color: red;
+  font-size: 12;
+  margin-left: 40;
+  margin-bottom: 20;
 }
 
 .form {
-    height: 230;
-    width: 300;
-    background-color: rgba(255, 255, 255, 0.83);
-    border-radius: 10;
-}
-
-GridLayout {
-    background-image: url('res://');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+  margin-top: 200;
+  width: 300;
 }
 
 ActionBar {
-    background-color:  rgb(19, 19, 155);
-    font-size: 12;
-    color: white;
+  background-color: #32383e;
+  font-size: 12;
+  color: #ffc000;
+  text-align: center;
+}
+
+.fondo {
+  background-color: #32383e;
+}
+
+.titleForm {
+  margin-bottom: -10;
+  color: white;
+}
+
+.textInfor {
+  margin-top: 130;
+  color: white;
+  font-size: 12;
+  text-align: center;
 }

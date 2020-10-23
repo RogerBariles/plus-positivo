@@ -1,41 +1,53 @@
-<ActionBar title="Inicio de Sesión">
-</ActionBar>
+<ActionBar title="Le damos la bienvenida a:"> </ActionBar>
 
 <GridLayout class="fondo">
   <ActivityIndicator [busy]="spinner"></ActivityIndicator>
 
-  <StackLayout *ngIf="!spinner" class="form" [formGroup]="formLogin">
+  <FlexboxLayout *ngIf="!spinner" flexDirection="column">
+    <label
+      class="textInfor"
+      text="Para ingresar al sistema complete la siguiente información"
+    >
+    </label>
+  </FlexboxLayout>
+
+  <FlexboxLayout
+    flexDirection="column"
+    *ngIf="!spinner"
+    class="form"
+    [formGroup]="formLogin"
+  >
+    <label class="titleForm" text="Usuario"> </label>
     <TextField
       class="inputLogin"
       formControlName="username"
-      hint="Usuario"
       secure="false"
       maxLength="10"
     >
     </TextField>
+
     <label
       class="text"
       text="Campo Requerido"
       *ngIf="!this.formLogin.get('username').valid"
     >
     </label>
+    <label class="titleForm" text="Contraseña"> </label>
     <TextField
       class="inputLogin"
       formControlName="password"
-      hint="Contraseña"
       secure="true"
       autocorrect="false"
       maxLength="10"
     >
     </TextField>
+
     <label
       class="text"
       text="Campo Requerido"
       *ngIf="!this.formLogin.get('password').valid"
     >
     </label>
-
     <Button id="BtnLogin" text="Ingresar" (tap)="getIn()"></Button>
-
-  </StackLayout>
+  </FlexboxLayout>
 </GridLayout>

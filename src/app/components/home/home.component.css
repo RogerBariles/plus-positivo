@@ -1,17 +1,13 @@
 #btnSerch {
-  background-color: rgb(19, 19, 155);
+  background-color: #ffc000;
   width: 80;
   height: 45;
   border-radius: 5;
-  color: white;
-}
-
-GridLayout {
-  margin-top: 5;
+  color: black;
 }
 
 ActionBar {
-  background-color: rgb(19, 19, 155);
+  background-color: #32383e;
   color: white;
 }
 
@@ -49,5 +45,18 @@ Image {
 
 .notFilter {
     color: red;
-    
+    font-weight: bold;
+    font-size: 12;
+}
+
+.homeFondo {
+  background-color: #32383e;
+}
+
+TextField {
+  color: white;
+}
+
+.text {
+  color: white;
 }

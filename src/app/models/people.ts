@@ -5,14 +5,22 @@ export class People extends Users {
     codigoPrs: string;
     apellidosPrs: string;
     nombresPrs: string;
-    nacimientoPrs: any;
+    nacimientoPrs: string;
     imagenPrs: string;
     imagenPrsContentType: string;
     tipo: Tipo;
-    lider: any;
-    liderados: any;
+    lider: Lider;
+    liderados:  Liderados[];
     organizacion: Organizacion;
     puesto: Puesto;
+}
+
+export class Liderados {
+    
+}
+
+export class Lider {
+    
 }
 
 export class TipoOrg {
@@ -41,7 +49,7 @@ export class Puesto {
     abrevPue: string;
     codigoPue: string;
     descPue: string;
-    finPue: Date;
+    finPue: string;
     id: number;
-    inicioPue: Date;
+    inicioPue: string;
 }
