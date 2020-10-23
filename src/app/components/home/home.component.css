@@ -16,7 +16,7 @@ ActionBar {
 }
 
 ListView {
-  margin-top: 30;
+  margin-top: 50;
 }
 
 #btnEdit {
@@ -32,21 +32,23 @@ Image {
 }
 
 #headerMenu {
+  margin-top: 20;
   margin-left: 35;
 }
 
 .titleTable {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .home {
-    margin-top: 60;
+  margin-top: 60;
 }
 
 .notFilter {
-    color: red;
-    font-weight: bold;
-    font-size: 12;
+  margin-top: 15;
+  color: red;
+  font-weight: bold;
+  font-size: 15;
 }
 
 .homeFondo {

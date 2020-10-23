@@ -1,9 +1,10 @@
-<ActionBar title="Le damos la bienvenida a:"> </ActionBar>
+<ActionBar class="titleHeader" title="Le damos la bienvenida a"> </ActionBar>
 
 <GridLayout class="fondo">
   <ActivityIndicator [busy]="spinner"></ActivityIndicator>
 
   <FlexboxLayout *ngIf="!spinner" flexDirection="column">
+    <Image src="res://logosplus"></Image>
     <label
       class="textInfor"
       text="Para ingresar al sistema complete la siguiente información"

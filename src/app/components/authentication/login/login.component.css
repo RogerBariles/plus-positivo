@@ -27,9 +27,8 @@
 
 ActionBar {
   background-color: #32383e;
-  font-size: 12;
+  font-size: 9;
   color: #ffc000;
-  text-align: center;
 }
 
 .fondo {
@@ -42,8 +41,14 @@ ActionBar {
 }
 
 .textInfor {
-  margin-top: 130;
+  margin-top: 40;
   color: white;
   font-size: 12;
   text-align: center;
+}
+
+Image {
+  margin-top: 15;
+  width: 150;
+  height: 60;
 }

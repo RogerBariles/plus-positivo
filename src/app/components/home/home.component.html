@@ -4,12 +4,7 @@
 </ActionBar>
 <GridLayout class="homeFondo">
   <GridLayout rows="auto,*" columns="2*,*">
-    <TextField
-      row="0"
-      col="0"
-      hint="Buscar Persona (Por apellido)"
-      [(ngModel)]="personsFilter"
-    ></TextField>
+    <TextField row="0" col="0" [(ngModel)]="personsFilter"></TextField>
     <Button
       id="btnSerch"
       row="0"
@@ -17,6 +12,13 @@
       text="Búscar"
       (tap)="applyFIlter()"
     ></Button>
+    <label
+      style="margin-top: -20; color: white"
+      row="1"
+      col="0"
+      text="Buscar Persona"
+      textAlignment="center"
+    ></label>
   </GridLayout>
 
   <GridLayout class="home">
@@ -38,6 +40,7 @@
       >
       </label>
     </GridLayout>
+
     <ListView
       *ngIf="loadPeople"
       [items]="filterPeople"
