@@ -49,8 +49,17 @@ ListPicker {
 }
 
 #labelContexto {
-    height: 30;
-    margin: 0 20;
-    background-color: white;
+    margin: 5 15;
     color: black;
+}
+
+.textModal {
+    color: black;
+}
+
+#stackLabelCtx {
+    background-color: white;
+    border-radius: 10;
+    height: 30;
+    margin: 5 20;
 }

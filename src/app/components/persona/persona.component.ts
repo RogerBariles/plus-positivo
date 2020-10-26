@@ -14,7 +14,10 @@ import { AnimationCurve } from "@nativescript/core/ui/enums";
     styleUrls: ["./persona.component.css"],
 })
 export class PersonaComponent implements OnInit {
+
     @ViewChild("menuBtn", { static: false }) menuBtn: ElementRef;
+    @ViewChild("longListPickerContainer") longListPickerContainer: ElementRef;
+    @ViewChild("longListPickerDimmer") longListPickerDimmer: ElementRef;
 
     snackbar = new SnackBar();
     spinner: boolean;
@@ -23,24 +26,13 @@ export class PersonaComponent implements OnInit {
     peopleImg: string;
     descripcionPrs: string;
     newDescirpcion: string;
-    contexts: string[];
+    contexts: Context[];
+    selectCtx: Context;
 
+    showingCreateTicket: any = false;
+    loadingTicketFields: boolean = false;
 
-    @ViewChild("longListPickerContainer") longListPickerContainer: ElementRef;
-    @ViewChild("longListPickerDimmer") longListPickerDimmer: ElementRef;
-
-    public showingCreateTicket: any = false;
-    public loadingTicketFields: boolean = false;
-
-    public showingLongListPicker: any = false;
-    public unfilteredItemsToShow = [];
-    public itemsToShow = [];
-
-    public selectedProduct = '';
-    public productMap = {};
-    public listProducts = [];
-
-    public filterItem: string;
+    showingLongListPicker: any = false;
 
     constructor(
         private modalDialog: ModalDialogService,
@@ -77,9 +69,7 @@ export class PersonaComponent implements OnInit {
         this.contexts = [];
         this.personsService.getAllConetext().subscribe(
             (next: Context[]) => {
-                next.forEach((nextElement) => {
-                    this.contexts.push(nextElement.descCtx);
-                });
+                this.contexts = next;
             },
             (error) => {}
         );
@@ -96,8 +86,6 @@ export class PersonaComponent implements OnInit {
 
         this.personsService.updatePeople(this.people).subscribe(
             (resp) => {
-                console.log(this.people.tipo.descTpPrs);
-                console.log(resp);
                 this.snackbar
                     .action({
                         message: `Datos guardados correctamente`,
@@ -136,10 +124,7 @@ export class PersonaComponent implements OnInit {
 
    
     showProducts() {
-        console.log(this.contexts);
         this.animateLongListPicker('products');
-        this.itemsToShow = this.listProducts;
-        this.unfilteredItemsToShow = this.listProducts;
     }
 
     animateLongListPicker(type) {
@@ -160,14 +145,6 @@ export class PersonaComponent implements OnInit {
         })
     }
 
-    chooseLongList(event) {
-        this.filterItem = '';
-        if (this.showingLongListPicker == 'products') {
-            this.selectedProduct = this.itemsToShow[event.index];
-        }
-        this.closeLongListPicker();
-    }
-
     closeLongListPicker() {
         this.longListPickerDimmer.nativeElement.animate({
             opacity: 0,
@@ -181,6 +158,11 @@ export class PersonaComponent implements OnInit {
         }).then(() => {
             this.showingLongListPicker = false;
         })
+    }
+
+    selecCtx(index: number) {
+        this.selectCtx = this.contexts[index];
+        this.closeLongListPicker();
     }
 
     
