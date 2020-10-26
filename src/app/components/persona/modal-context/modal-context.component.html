@@ -1,0 +1,11 @@
+<StackLayout>
+  <StackLayout
+    orientation="vertical"
+    width="100%"
+    height="210"
+    backgroundColor="lightgray"
+    *ngIf="load"
+  >
+    <ListPicker #picker [items]="contexts"></ListPicker>
+  </StackLayout>
+</StackLayout>

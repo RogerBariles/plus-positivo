@@ -36,4 +36,8 @@ export class PersonsService {
             })
             .pipe(take(1));
     }
+
+    getAllConetext() {
+        return this.http.get(environment.apiUrl + 'api/contextos').pipe(take(1));
+    }
 }

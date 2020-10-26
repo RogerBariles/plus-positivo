@@ -12,17 +12,29 @@
   height="auto"
   width="auto"
 >
-  <GridLayout columns="*" rows="auto,*" style="margin-top: 10;">
+  <GridLayout columns="*" rows="auto,*" style="margin-top: 10">
     <GridLayout columns="*,2*" rows="auto,3*" width="500">
       <Image row="0" col="0" id="imagePrs" src="{{ peopleImg }}"></Image>
       <FlexboxLayout flexDirection="column" row="0" col="1">
         <label id="textHeaderApe" text="{{ people?.apellidosPrs }}"></label>
         <label id="textHeaderNom" text="{{ people?.nombresPrs }}"></label>
+        <label
+          id="textHeaderNom"
+          text="Puesto: {{ people?.puesto.descPue }}"
+        ></label>
       </FlexboxLayout>
     </GridLayout>
 
     <GridLayout row="1" col="0" *ngIf="!spinner">
       <FlexboxLayout flexDirection="column">
+        <!-- <ListPicker
+          #picker
+          [items]="contexts"
+          [selectedIndex]="selectedIndex"
+          (selectedIndexChange)="selectedIndexChanged(selector)"
+        >         </ListPicker>-->
+        <label class="textScrollArea" text="Contexto:"></label>
+        <label id="labelContexto"(tap)="showProducts()"></label>
         <label class="textScrollArea" text="Opinion:"></label>
         <ScrollView
           orientation="vertical"
@@ -31,11 +43,7 @@
           height="auto"
           width="auto"
         >
-          <TextView
-            text=""
-            returnKeyType="done"
-            autocorrect="false"
-          >
+          <TextView text="" returnKeyType="done" autocorrect="false">
           </TextView>
         </ScrollView>
 
@@ -44,3 +52,32 @@
     </GridLayout>
   </GridLayout>
 </ScrollView>
+
+<GridLayout
+  [visibility]="showingLongListPicker ? 'visible' : 'collapsed'"
+  rows="*, auto, *"
+  columns="30, *, 30"
+>
+  <GridLayout
+    style="background-color: rgba(0, 0, 0, 0.753)"
+    rowSpan="3"
+    colSpan="3"
+    #longListPickerDimmer
+  ></GridLayout>
+  <StackLayout
+    row="1"
+    col="1"
+    #longListPickerContainer
+    style="background-color: white; border-radius: 10"
+  >
+    <StackLayout>
+      <ListView [items]="contexts" height="300" style="color: black;">
+        <ng-template let-item="item">
+          <StackLayout>
+            <Label text="{{contexts[item]}}"></Label>
+          </StackLayout>
+        </ng-template>
+      </ListView>
+    </StackLayout>
+  </StackLayout>
+</GridLayout>

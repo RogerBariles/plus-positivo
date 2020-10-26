@@ -40,4 +40,17 @@ ActionBar {
 TextView {
     background-color: white;
     border-radius: 15;
+    padding: 5;
+}
+
+ListPicker {
+    background-color: white;
+    max-width: 150;
+}
+
+#labelContexto {
+    height: 30;
+    margin: 0 20;
+    background-color: white;
+    color: black;
 }

@@ -16,7 +16,7 @@ import { HomeComponent } from "./components/home/home.component";
 import { AppComponent } from "./app.component";
 import { LoginComponent } from './components/authentication/login/login.component'
 import { PersonaComponent } from './components/persona/persona.component'
-
+import { ModalContextComponent } from './components/persona/modal-context/modal-context.component'
 
 @NgModule({
     bootstrap: [
@@ -35,6 +35,7 @@ import { PersonaComponent } from './components/persona/persona.component'
         LoginComponent,
         HomeComponent,
         PersonaComponent,
+        ModalContextComponent,
         
     ],
     providers: [
@@ -48,6 +49,9 @@ import { PersonaComponent } from './components/persona/persona.component'
     ],
     schemas: [
         NO_ERRORS_SCHEMA
+    ],
+    entryComponents: [
+        ModalContextComponent
     ]
 })
 export class AppModule { }
