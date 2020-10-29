@@ -37,6 +37,7 @@
     "@nativescript/core": "~7.0.0",
     "@nativescript/theme": "~2.3.0",
     "nativescript-dev-appconfig": "^1.0.2",
+    "nativescript-dom": "^2.0.5",
     "nativescript-menu": "^1.1.6",
     "nativescript-star-ratings": "^1.0.0",
     "reflect-metadata": "~0.1.12",

@@ -1,6 +1,6 @@
 import { Token } from "../../../models/user";
 import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormControl, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 import { setString } from "@nativescript/core/application-settings";
 import { AuthenticationService } from "../../../services/authentication.service";
@@ -11,6 +11,11 @@ import { SnackBar } from "@nativescript-community/ui-material-snackbar";
     styleUrls: ["./login.component.css"],
 })
 export class LoginComponent implements OnInit {
+
+    validPas: boolean;
+    validUser: boolean;
+    username: string = '';
+    password: string = '';
     snackbar = new SnackBar();
     spinner: boolean;
     formLogin: FormGroup;
@@ -20,6 +25,8 @@ export class LoginComponent implements OnInit {
         private router: Router
     ) {
         this.spinner = false;
+        this.validUser = true;
+        this.validPas = true;
     }
 
     ngOnInit() {
@@ -31,17 +38,21 @@ export class LoginComponent implements OnInit {
         this.formLogin = new FormGroup({
             username: new FormControl(null, {
                 updateOn: "blur",
-                validators: [Validators.required],
+                validators: [],
             }),
             password: new FormControl(null, {
                 updateOn: "blur",
-                validators: [Validators.required],
+                validators: [],
             }),
         });
     }
 
     getIn() {
         this.spinner = true;
+        this.formLogin.patchValue({
+            username: this.username,
+            password: this.password
+          });
         if (this.formLogin.valid) {
             this.authService.loguin(this.formLogin).subscribe(
                 (resp: Token) => {
@@ -53,14 +64,10 @@ export class LoginComponent implements OnInit {
                     ]);
                 },
                 (error) => {
+                    this.validPas = true;
+                    this.validUser = true;
                     this.formLogin.get("username").setValue("");
                     this.formLogin.get("password").setValue("");
-                    // let options = {
-                    //     title: "Credenciales Incorrectas",
-                    //     message: "Usuarios/contraseña incorrecto.",
-                    //     okButtonText: "OK"
-                    // };
-                    // alert(options);
                     this.showSimpleSnackbar();
                 }
             );
@@ -79,5 +86,19 @@ export class LoginComponent implements OnInit {
             .then((resp) => {
                 this.spinner = false;
             });
+    }
+
+    onTextChange(event){
+        this.password = event.value;
+        if(this.password != '') {
+            this.validPas = false;
+        }
+    }
+
+    onText(event) {
+        this.username = event.value;
+        if(this.username != '') {
+            this.validUser= false;
+        }
     }
 }

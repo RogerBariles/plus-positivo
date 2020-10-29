@@ -16,12 +16,11 @@
     flexDirection="column"
     *ngIf="!spinner"
     class="form"
-    [formGroup]="formLogin"
   >
-    <label class="titleForm" text="Usuario"> </label>
+    <label class="titleForm" text="Usuario "> </label>
     <TextField
       class="inputLogin"
-      formControlName="username"
+      (textChange)="onText($event)"
       secure="false"
       maxLength="10"
     >
@@ -30,13 +29,13 @@
     <label
       class="text"
       text="Campo Requerido"
-      *ngIf="!this.formLogin.get('username').valid"
+      *ngIf="validUser"
     >
     </label>
-    <label class="titleForm" text="Contraseña"> </label>
+    <label class="titleForm" text="Contraseña "> </label>
     <TextField
       class="inputLogin"
-      formControlName="password"
+      (textChange)="onTextChange($event)"
       secure="true"
       autocorrect="false"
       maxLength="10"
@@ -46,7 +45,7 @@
     <label
       class="text"
       text="Campo Requerido"
-      *ngIf="!this.formLogin.get('password').valid"
+      *ngIf="validPas"
     >
     </label>
     <Button id="BtnLogin" text="Ingresar" (tap)="getIn()"></Button>

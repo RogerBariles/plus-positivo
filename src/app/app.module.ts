@@ -7,7 +7,7 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 //---------- Services
 import { AuthHttpInterceptor } from '../app/services/auth-http.interceptor';
 import { AuthenticationService } from '../app/services/authentication.service';
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PersonsService } from '../app/services/persons.service';
 
 
@@ -17,6 +17,7 @@ import { AppComponent } from "./app.component";
 import { LoginComponent } from './components/authentication/login/login.component'
 import { PersonaComponent } from './components/persona/persona.component'
 import { ModalContextComponent } from './components/persona/modal-context/modal-context.component'
+import { BrowserModule } from "@angular/platform-browser";
 
 @NgModule({
     bootstrap: [
@@ -28,6 +29,7 @@ import { ModalContextComponent } from './components/persona/modal-context/modal-
         NativeScriptFormsModule,
         ReactiveFormsModule,
         NativeScriptHttpClientModule,
+        FormsModule
 
     ],
     declarations: [

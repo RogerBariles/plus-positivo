@@ -21,6 +21,11 @@ ActionBar {
     color: white;
 }
 
+#textHeaderPuesto {
+    font-size: 12;
+    color: white;
+}
+
 .textScrollArea {
     margin-top: 10;
     margin-left: 15;
@@ -41,6 +46,7 @@ TextView {
     background-color: white;
     border-radius: 15;
     padding: 5;
+    height: auto;
 }
 
 ListPicker {

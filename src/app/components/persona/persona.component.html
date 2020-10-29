@@ -1,9 +1,8 @@
 <ActionBar title="Se está evaluando a:">
-  <ActionItem icon="res://menu" class="fas" ios.position="left"></ActionItem>
-  <!-- <NavigationButton icon="res://menu"></NavigationButton> -->
+  <!-- <ActionItem icon="res://menu" class="fas" ios.position="left"></ActionItem> -->
 </ActionBar>
 
-<ActivityIndicator [busy]="spinner"></ActivityIndicator>
+
 <ScrollView
   id="descripcion"
   orientation="vertical"
@@ -19,17 +18,22 @@
         <label id="textHeaderApe" text="{{ people?.apellidosPrs }}"></label>
         <label id="textHeaderNom" text="{{ people?.nombresPrs }}"></label>
         <label
-          id="textHeaderNom"
+          id="textHeaderPuesto"
           text="Puesto: {{ people?.puesto.descPue }}"
         ></label>
       </FlexboxLayout>
     </GridLayout>
-
-    <GridLayout row="1" col="0" *ngIf="!spinner">
-      <FlexboxLayout flexDirection="column">
-        <label class="textScrollArea" text="Contexto:"></label>
+    
+    <GridLayout row="1" col="0">
+    <ActivityIndicator [busy]="spinner" ></ActivityIndicator>
+    <FlexboxLayout flexDirection="column"  *ngIf="!spinner">
+        <label class="textScrollArea" text="Contexto: *"></label>
         <StackLayout id="stackLabelCtx">
-          <label id="labelContexto"(tap)="showProducts()" text="{{selectCtx?.descCtx}}"></label>
+          <label
+            id="labelContexto"
+            (tap)="showProducts()"
+            text="{{ selectCtx?.descCtx }}"
+          ></label>
         </StackLayout>
         <label class="textScrollArea" text="Opinion:"></label>
         <ScrollView
@@ -39,11 +43,49 @@
           height="auto"
           width="auto"
         >
-          <TextView text="" returnKeyType="done" autocorrect="false">
+          <TextView
+            (textChange)="onTextChange($event)"
+            returnKeyType="done"
+            autocorrect="false"
+            editable="true"
+          >
           </TextView>
         </ScrollView>
-
-        <Button id="btnSave" text="Enviar" (tap)="updatePeople()"></Button>
+        <StackLayout
+          width="100%"
+          orientation="horizontal"
+          horizontalAlignment="center"
+          verticalAlignment="middle"
+        >
+          <StackLayout *ngFor="let star of stars">
+              <Image
+                #starB
+                (tap)="countStar(star)"
+                src="font://&#xf005;"
+                class="fas"
+                style="height: 35; margin: 15 4;"
+                tintColor="{{color[star]}}"
+              ></Image>
+          </StackLayout>
+          <Label
+            *ngIf="selectedStar"
+            class=""
+            style="
+              color: white;
+              padding: unset;
+              padding-left: 50px;
+              font-size: 25;
+              margin: 15 2;
+            "
+            text="{{ selectedStar }}"
+          ></Label>
+        </StackLayout>
+        <Button
+          *ngIf="disabledButton"
+          id="btnSave"
+          text="Enviar"
+          (tap)="updatePeople()"
+        ></Button>
       </FlexboxLayout>
     </GridLayout>
   </GridLayout>
@@ -69,12 +111,28 @@
     <StackLayout>
       <ListView [items]="contexts" height="300">
         <ng-template let-item="item" let-i="index">
-            <Label class="textModal" text="{{contexts[i].descCtx}}" (tap)="selecCtx(i)"></Label>
+          <Label
+            class="textModal"
+            text="{{ contexts[i].descCtx }}"
+            (tap)="selecCtx(i)"
+          ></Label>
         </ng-template>
       </ListView>
     </StackLayout>
-    <GridLayout columns="auto, *, auto" style="background-color:white; font-weight: bold; border-radius: 10">
-      <Button style="background-color:red; color: white; font-weight: bold; width: 100;"class="transBtn sm" text="Cancelar" (tap)="closeLongListPicker()"></Button>
-  </GridLayout>
+    <GridLayout
+      style="background-color: white; font-weight: bold; border-radius: 10"
+    >
+      <Button
+        style="
+          background-color: red;
+          color: white;
+          font-weight: bold;
+          width: 100;
+        "
+        class="transBtn sm -rounded-lg"
+        text="Cancelar"
+        (tap)="closeLongListPicker()"
+      ></Button>
+    </GridLayout>
   </StackLayout>
 </GridLayout>

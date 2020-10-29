@@ -24,14 +24,14 @@ export class PersonsService {
             .pipe(take(1));
     }
 
-    updatePeople(people: People) {
+    updateOpinionPeople(OpinionsPeople) {
         const header = new HttpHeaders().append(
             "Content-Type",
             "application/json"
         );
 
         return this.http
-            .put(environment.apiUrl + "api/personas", JSON.stringify(people), {
+            .post(environment.apiUrl + "api/opinions/nueva", JSON.stringify(OpinionsPeople), {
                 headers: header,
             })
             .pipe(take(1));

@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { ModalDialogParams } from "@nativescript/angular";
 import { Context } from "../../../models/opinion";
 import { PersonsService } from '../../../services/persons.service';
 
@@ -14,7 +13,6 @@ export class ModalContextComponent implements OnInit {
     contexts: string[];
 
     constructor(
-        private modalParams: ModalDialogParams,
         private personsService: PersonsService
     ) {
         this.load = true;
@@ -37,10 +35,5 @@ export class ModalContextComponent implements OnInit {
             (error) => {}
         );
     }
-
-
-    selectedIndexChanged(args) {
-                                                                     
-    } 
 
 }
