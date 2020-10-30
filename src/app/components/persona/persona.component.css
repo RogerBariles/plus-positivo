@@ -69,3 +69,11 @@ ListPicker {
     height: 30;
     margin: 5 20;
 }
+
+
+.text {
+    color: red;
+    font-size: 10;
+    margin-left: 40;
+    margin-top: -5;
+  }

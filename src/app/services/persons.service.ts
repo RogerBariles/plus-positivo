@@ -31,7 +31,7 @@ export class PersonsService {
         );
 
         return this.http
-            .post(environment.apiUrl + "api/opinions/nueva", JSON.stringify(OpinionsPeople), {
+            .post(environment.apiUrl + "api/opinions", OpinionsPeople, {
                 headers: header,
             })
             .pipe(take(1));
@@ -39,5 +39,12 @@ export class PersonsService {
 
     getAllConetext() {
         return this.http.get(environment.apiUrl + 'api/contextos').pipe(take(1));
+    }
+
+    getPeopleByCondigoPrs(people) {
+        const param = new HttpParams ()
+        .append("codigoPrs.contains",people);
+
+        return this.http.get(environment.apiUrl + 'api/personas', {params: param}).pipe(take(1));
     }
 }

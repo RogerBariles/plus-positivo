@@ -13,6 +13,7 @@ import { Context } from "../../models/opinion";
 import { ModalDialogService } from "@nativescript/angular";
 import { ModalContextComponent } from "./modal-context/modal-context.component";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
+import { getString } from "@nativescript/core/application-settings";
 @Component({
     selector: "ns-persona",
     templateUrl: "./persona.component.html",
@@ -22,6 +23,9 @@ export class PersonaComponent implements OnInit {
     @ViewChild("longListPickerContainer") longListPickerContainer: ElementRef;
     @ViewChild("longListPickerDimmer") longListPickerDimmer: ElementRef;
 
+    validStar: boolean;
+    validCtx: boolean;
+    peopleLogin: People;
     disabledButton: boolean;
     snackbar = new SnackBar();
     spinner: boolean;
@@ -31,7 +35,7 @@ export class PersonaComponent implements OnInit {
     newDescirpcion: string;
     contexts: Context[];
     selectCtx: Context;
-    color: string[];
+    color: string[] = ['','','','','',''];
     showingCreateTicket: any = false;
     loadingTicketFields: boolean = false;
     showingLongListPicker: any = false;
@@ -45,16 +49,33 @@ export class PersonaComponent implements OnInit {
         private activateRoute: ActivatedRoute,
         private personsService: PersonsService
     ) {
-        this.color = ["white", "white", "white", "white", "white", "white"];
-        this.disabledButton = false;
+        this.initArrayStar();
+        this.validCtx = true;
+        this.validStar = true;
         this.contexts = [];
         this.idPersonSelect = this.activateRoute.snapshot.params.idPersona;
     }
 
     ngOnInit() {
         this.spinner = true;
+        this.peopleLoginFun();
         this.getPeopleSelect();
         this.getAllContext();
+    }
+
+    ngOnChanges() {
+        if (this.selectCtx.descCtx != null) {
+            this.validCtx = false;
+        }
+    }
+
+    peopleLoginFun() {
+        const peolpe = getString("userLogin");
+        this.personsService
+            .getPeopleByCondigoPrs(peolpe)
+            .subscribe((resp: People) => {
+                this.peopleLogin = resp;
+            });
     }
 
     countStar(star) {
@@ -64,6 +85,7 @@ export class PersonaComponent implements OnInit {
             else this.color[i] = "white";
         }
         this.validButton();
+        this.validStar = false;
     }
 
     getPeopleSelect() {
@@ -96,15 +118,16 @@ export class PersonaComponent implements OnInit {
 
     updatePeople() {
         this.spinner = true;
+        let fechaA = new Date();
 
         let jsonCtx = {
             comentarioOpi: this.newDescirpcion,
             contexto: this.selectCtx,
-            criterioOpi: 1,
             estrellasOpi: this.selectedStar,
-            fechaOpi: new Date(),
+            fechaOpi: fechaA,
             id: null,
             opinado: this.people,
+            opinante: this.peopleLogin[0],
         };
 
         this.personsService.updateOpinionPeople(jsonCtx).subscribe(
@@ -123,16 +146,6 @@ export class PersonaComponent implements OnInit {
                     });
             },
             (error) => {
-                this.color = [
-                    "white",
-                    "white",
-                    "white",
-                    "white",
-                    "white",
-                    "white",
-                ];
-                this.selectedStar = 0;
-                this.selectCtx = new Context();
                 this.snackbar
                     .action({
                         message: `Error al guardar`,
@@ -144,6 +157,11 @@ export class PersonaComponent implements OnInit {
                     .then((resp) => {
                         this.spinner = false;
                     });
+            },
+            () => {
+                this.initArrayStar();
+                this.selectedStar = 0;
+                this.selectCtx = new Context();
             }
         );
     }
@@ -195,6 +213,7 @@ export class PersonaComponent implements OnInit {
     }
 
     selecCtx(index: number) {
+        this.validCtx = false;
         this.selectCtx = this.contexts[index];
         this.validButton();
         this.closeLongListPicker();
@@ -204,5 +223,11 @@ export class PersonaComponent implements OnInit {
         const a = this.selectCtx.descCtx != undefined ? true : false;
         const b = this.selectedStar ? true : false;
         this.disabledButton = a && b;
+    }
+
+    initArrayStar() {
+        for (let i = 0; i < 6; i++) {
+            this.color[i] = "white";
+        }
     }
 }

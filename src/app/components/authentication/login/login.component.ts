@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        //---initialitation form Reactive
         this.build();
     }
 
@@ -57,6 +56,7 @@ export class LoginComponent implements OnInit {
             this.authService.loguin(this.formLogin).subscribe(
                 (resp: Token) => {
                     setString("token", resp.id_token);
+                    setString("userLogin", this.username);
                     this.spinner = false;
                     this.router.navigate([
                         "/home/",

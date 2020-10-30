@@ -2,7 +2,6 @@
   <!-- <ActionItem icon="res://menu" class="fas" ios.position="left"></ActionItem> -->
 </ActionBar>
 
-
 <ScrollView
   id="descripcion"
   orientation="vertical"
@@ -23,11 +22,11 @@
         ></label>
       </FlexboxLayout>
     </GridLayout>
-    
+
     <GridLayout row="1" col="0">
-    <ActivityIndicator [busy]="spinner" ></ActivityIndicator>
-    <FlexboxLayout flexDirection="column"  *ngIf="!spinner">
-        <label class="textScrollArea" text="Contexto: *"></label>
+      <ActivityIndicator [busy]="spinner"></ActivityIndicator>
+      <FlexboxLayout flexDirection="column" *ngIf="!spinner">
+        <label class="textScrollArea" text="Contexto:"></label>
         <StackLayout id="stackLabelCtx">
           <label
             id="labelContexto"
@@ -35,6 +34,7 @@
             text="{{ selectCtx?.descCtx }}"
           ></label>
         </StackLayout>
+        <label class="text" text="Campo Requerido" *ngIf="validCtx"></label>
         <label class="textScrollArea" text="Opinion:"></label>
         <ScrollView
           orientation="vertical"
@@ -58,14 +58,14 @@
           verticalAlignment="middle"
         >
           <StackLayout *ngFor="let star of stars">
-              <Image
-                #starB
-                (tap)="countStar(star)"
-                src="font://&#xf005;"
-                class="fas"
-                style="height: 35; margin: 15 4;"
-                tintColor="{{color[star]}}"
-              ></Image>
+            <Image
+              #starB
+              (tap)="countStar(star)"
+              src="font://&#xf005;"
+              class="fas"
+              style="height: 35; margin: 15 4"
+              tintColor="{{ color[star] }}"
+            ></Image>
           </StackLayout>
           <Label
             *ngIf="selectedStar"
@@ -80,8 +80,9 @@
             text="{{ selectedStar }}"
           ></Label>
         </StackLayout>
+        <label class="text" text="Campo Requerido" *ngIf="validStar"></label>
         <Button
-          *ngIf="disabledButton"
+          isEnabled="{{ disabledButton }}"
           id="btnSave"
           text="Enviar"
           (tap)="updatePeople()"
