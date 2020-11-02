@@ -36,6 +36,7 @@ ActionBar {
 }
 
 .titleForm {
+  margin-top: 10;
   margin-bottom: -10;
   color: white;
 }

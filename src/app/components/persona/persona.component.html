@@ -81,8 +81,8 @@
           ></Label>
         </StackLayout>
         <label class="text" text="Campo Requerido" *ngIf="validStar"></label>
+        <!-- isEnabled="{{ disabledButton }}" -->
         <Button
-          isEnabled="{{ disabledButton }}"
           id="btnSave"
           text="Enviar"
           (tap)="updatePeople()"
