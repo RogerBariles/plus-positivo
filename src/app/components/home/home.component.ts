@@ -3,6 +3,7 @@ import { PersonsService } from "../../services/persons.service";
 import { People } from "../../models/people";
 import { Router } from "@angular/router";
 import { getString } from "@nativescript/core/application-settings";
+
 @Component({
     selector: "ns-home",
     templateUrl: "./home.component.html",
@@ -26,6 +27,9 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {}
 
+    ngOnChanges(): void {
+    }
+
     applyFIlter() {
         this.spinner = true;
         this.personsService.getAllPersonas(this.personsFilter).subscribe(
@@ -42,7 +46,6 @@ export class HomeComponent implements OnInit {
                         this.filterNot = true;
                     }
                     this.spinner = false;
-
                 } else {
                     this.loadPeople = false;
                     this.filterNot = true;

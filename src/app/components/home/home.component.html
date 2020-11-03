@@ -47,7 +47,7 @@
       separatorColor="transparent"
     >
       <ng-template let-item="people" let-i="index">
-        <GridLayout rows="auto,*" columns="2*,*">
+        <GridLayout (tap)="selectPerson(i)" rows="auto,*" columns="2*,*">
           <label
             row="0"
             col="0"
@@ -57,10 +57,12 @@
           >
           </label>
           <Image
-            (tap)="selectPerson(i)"
-            row="0"
-            col="1"
-            src="res://pen"
+          (tap) = "selectPerson(i)"
+          row="0"
+          col="1"
+          class="fas fa-arrow-right"
+          style="color: white;"
+          src="font://&#xf061;"
           ></Image>
         </GridLayout>
       </ng-template>

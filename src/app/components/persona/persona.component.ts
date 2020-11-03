@@ -5,7 +5,7 @@ import {
     ViewChild,
     ViewContainerRef,
 } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { SnackBar } from "@nativescript-community/ui-material-snackbar";
 import { People } from "src/app/models/people";
 import { PersonsService } from "../../services/persons.service";
@@ -23,10 +23,10 @@ export class PersonaComponent implements OnInit {
     @ViewChild("longListPickerContainer") longListPickerContainer: ElementRef;
     @ViewChild("longListPickerDimmer") longListPickerDimmer: ElementRef;
 
+    ctx: boolean;
     validStar: boolean;
     validCtx: boolean;
     peopleLogin: People;
-    disabledButton: boolean;
     snackbar = new SnackBar();
     spinner: boolean;
     idPersonSelect: number;
@@ -37,36 +37,31 @@ export class PersonaComponent implements OnInit {
     selectCtx: Context;
     color: string[] = ['','','','','',''];
     showingCreateTicket: any = false;
-    loadingTicketFields: boolean = false;
     showingLongListPicker: any = false;
 
     stars: number[] = [1, 2, 3, 4, 5];
     selectedStar: number = 0;
 
     constructor(
+        private router: Router,
         private modalDialog: ModalDialogService,
         private vcRef: ViewContainerRef,
         private activateRoute: ActivatedRoute,
         private personsService: PersonsService
     ) {
         this.initArrayStar();
-        this.validCtx = true;
-        this.validStar = true;
+        this.spinner = true;
+        this.validCtx = false;
+        this.validStar = false;
+        this.ctx = false;
         this.contexts = [];
         this.idPersonSelect = this.activateRoute.snapshot.params.idPersona;
     }
 
     ngOnInit() {
-        this.spinner = true;
         this.peopleLoginFun();
         this.getPeopleSelect();
         this.getAllContext();
-    }
-
-    ngOnChanges() {
-        if (this.selectCtx.descCtx != null) {
-            this.validCtx = false;
-        }
     }
 
     peopleLoginFun() {
@@ -84,7 +79,6 @@ export class PersonaComponent implements OnInit {
             if (i <= star) this.color[i] = "yellow";
             else this.color[i] = "white";
         }
-        this.validButton();
         this.validStar = false;
     }
 
@@ -117,53 +111,58 @@ export class PersonaComponent implements OnInit {
     }
 
     updatePeople() {
-        this.spinner = true;
-        let fechaA = new Date();
+        this.validField();
+        if(!this.validCtx && !this.validStar) {
+            this.spinner = true;
+            let fechaA = new Date();
+    
+            let jsonCtx = {
+                comentarioOpi: this.newDescirpcion,
+                contexto: this.selectCtx,
+                estrellasOpi: this.selectedStar,
+                fechaOpi: fechaA,
+                id: null,
+                opinado: this.people,
+                opinante: this.peopleLogin[0],
+            };
+    
+            this.personsService.updateOpinionPeople(jsonCtx).subscribe(
+                (resp) => {
+                    this.snackbar
+                        .action({
+                            message: `Datos guardados correctamente`,
+                            textColor: "white",
+                            actionTextColor: "white",
+                            backgroundColor: "green",
+                            actionText: "Exitó",
+                            hideDelay: 2000,
+                        })
+                        .then((resp) => {
+                            this.spinner = false;
+                            this.router.navigate(["/home/",this.peopleLogin[0].codigoPrs]);
+                        });
+                },
+                (error) => {
+                    this.snackbar
+                        .action({
+                            message: `Error al guardar`,
+                            textColor: "white",
+                            actionTextColor: "black",
+                            backgroundColor: "red",
+                            hideDelay: 2000,
+                        })
+                        .then((resp) => {
+                            this.spinner = false;
+                        });
+                },
+                () => {
+                    this.initArrayStar();
+                    this.selectedStar = 0;
+                    this.selectCtx = new Context();
+                }
+            );
 
-        let jsonCtx = {
-            comentarioOpi: this.newDescirpcion,
-            contexto: this.selectCtx,
-            estrellasOpi: this.selectedStar,
-            fechaOpi: fechaA,
-            id: null,
-            opinado: this.people,
-            opinante: this.peopleLogin[0],
-        };
-
-        this.personsService.updateOpinionPeople(jsonCtx).subscribe(
-            (resp) => {
-                this.snackbar
-                    .action({
-                        message: `Datos guardados correctamente`,
-                        textColor: "white",
-                        actionTextColor: "white",
-                        backgroundColor: "green",
-                        actionText: "Exitó",
-                        hideDelay: 2000,
-                    })
-                    .then((resp) => {
-                        this.spinner = false;
-                    });
-            },
-            (error) => {
-                this.snackbar
-                    .action({
-                        message: `Error al guardar`,
-                        textColor: "white",
-                        actionTextColor: "black",
-                        backgroundColor: "red",
-                        hideDelay: 2000,
-                    })
-                    .then((resp) => {
-                        this.spinner = false;
-                    });
-            },
-            () => {
-                this.initArrayStar();
-                this.selectedStar = 0;
-                this.selectCtx = new Context();
-            }
-        );
+        } 
     }
 
     onchangeContext() {
@@ -213,16 +212,15 @@ export class PersonaComponent implements OnInit {
     }
 
     selecCtx(index: number) {
+        this.ctx = true;
         this.validCtx = false;
         this.selectCtx = this.contexts[index];
-        this.validButton();
         this.closeLongListPicker();
     }
 
-    validButton() {
-        const a = this.selectCtx.descCtx != undefined ? true : false;
-        const b = this.selectedStar ? true : false;
-        this.disabledButton = a && b;
+    validField() {
+        this.validCtx = !this.ctx;
+        this.validStar = this.selectedStar == 0 ? true : false; 
     }
 
     initArrayStar() {
