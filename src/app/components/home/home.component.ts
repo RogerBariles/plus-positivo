@@ -59,4 +59,10 @@ export class HomeComponent implements OnInit {
     selectPerson(index) {
         this.router.navigate(["/persona/", this.filterPeople[index].id]);
     }
+
+    onTextChange() {
+        setTimeout(() => {
+            this.applyFIlter();
+        },500);
+    }
 }
