@@ -1,0 +1,55 @@
+#BtnLogin {
+  background: #ff9933;
+  color: black;
+  border-radius: 5;
+  font-size: 15;
+  width: 300;
+  height: 40;
+  margin-top: 30;
+}
+
+.inputLogin {
+  width: 250;
+  color: white;
+}
+
+.text {
+  color: red;
+  font-size: 12;
+  margin-left: 40;
+  margin-bottom: 10;
+}
+
+.form {
+  margin-top: 200;
+  width: 300;
+}
+
+ActionBar {
+  background-color: #32383e;
+  font-size: 9;
+  color: #ffc000;
+}
+
+.fondo {
+  background-color: #32383e;
+}
+
+.titleForm {
+  margin-top: 10;
+  margin-bottom: -10;
+  color: white;
+}
+
+.textInfor {
+  margin-top: 40;
+  color: white;
+  font-size: 12;
+  text-align: center;
+}
+
+Image {
+  margin-top: 15;
+  width: 150;
+  height: 60;
+}

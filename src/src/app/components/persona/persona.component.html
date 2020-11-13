@@ -1,0 +1,139 @@
+<ActionBar title="Se está evaluando a:">
+  <!-- <ActionItem icon="res://menu" class="fas" ios.position="left"></ActionItem> -->
+</ActionBar>
+
+<ScrollView
+  id="descripcion"
+  orientation="vertical"
+  row="1"
+  col="0"
+  height="auto"
+  width="auto"
+>
+  <GridLayout columns="*" rows="auto,*" style="margin-top: 10">
+    <GridLayout columns="*,2*" rows="auto,3*" width="500">
+      <Image row="0" col="0" id="imagePrs" src="{{ peopleImg }}"></Image>
+      <FlexboxLayout flexDirection="column" row="0" col="1">
+        <label id="textHeaderApe" text="{{ people?.apellidosPrs }}"></label>
+        <label id="textHeaderNom" text="{{ people?.nombresPrs }}"></label>
+        <label
+          id="textHeaderPuesto"
+          text="Puesto: {{ people?.puesto.descPue }}"
+        ></label>
+      </FlexboxLayout>
+    </GridLayout>
+
+    <GridLayout row="1" col="0">
+      <ActivityIndicator [busy]="spinner"></ActivityIndicator>
+      <FlexboxLayout flexDirection="column" *ngIf="!spinner">
+        <label class="textScrollArea" text="Contexto:"></label>
+        <StackLayout id="stackLabelCtx">
+          <label
+            id="labelContexto"
+            (tap)="showProducts()"
+            text="{{ selectCtx?.descCtx }}"
+          ></label>
+        </StackLayout>
+        <label class="text" text="Campo Requerido" *ngIf="validCtx"></label>
+        <label class="textScrollArea" text="Opinion:"></label>
+        <ScrollView
+          orientation="vertical"
+          row="1"
+          col="0"
+          height="auto"
+          width="auto"
+        >
+          <TextView
+            (textChange)="onTextChange($event)"
+            returnKeyType="done"
+            autocorrect="false"
+            editable="true"
+          >
+          </TextView>
+        </ScrollView>
+        <StackLayout
+          width="100%"
+          orientation="horizontal"
+          horizontalAlignment="center"
+          verticalAlignment="middle"
+        >
+          <StackLayout *ngFor="let star of stars">
+            <Image
+              #starB
+              (tap)="countStar(star)"
+              src="font://&#xf005;"
+              class="fas"
+              style="height: 35; margin: 15 4"
+              tintColor="{{ color[star] }}"
+            ></Image>
+          </StackLayout>
+          <Label
+            *ngIf="selectedStar"
+            class=""
+            style="
+              color: white;
+              padding: unset;
+              padding-left: 50px;
+              font-size: 25;
+              margin: 15 2;
+            "
+            text="{{ selectedStar }}"
+          ></Label>
+        </StackLayout>
+        <label class="text" text="Campo Requerido" *ngIf="validStar"></label>
+        <!-- isEnabled="{{ disabledButton }}" -->
+        <Button
+          id="btnSave"
+          text="Enviar"
+          (tap)="updatePeople()"
+        ></Button>
+      </FlexboxLayout>
+    </GridLayout>
+  </GridLayout>
+</ScrollView>
+
+<GridLayout
+  [visibility]="showingLongListPicker ? 'visible' : 'collapsed'"
+  rows="*, auto, *"
+  columns="30, *, 30"
+>
+  <GridLayout
+    style="background-color: rgba(0, 0, 0, 0.753)"
+    rowSpan="3"
+    colSpan="3"
+    #longListPickerDimmer
+  ></GridLayout>
+  <StackLayout
+    row="1"
+    col="1"
+    #longListPickerContainer
+    style="background-color: white; border-radius: 10"
+  >
+    <StackLayout>
+      <ListView [items]="contexts" height="300">
+        <ng-template let-item="item" let-i="index">
+          <Label
+            class="textModal"
+            text="{{ contexts[i].descCtx }}"
+            (tap)="selecCtx(i)"
+          ></Label>
+        </ng-template>
+      </ListView>
+    </StackLayout>
+    <GridLayout
+      style="background-color: white; font-weight: bold; border-radius: 10"
+    >
+      <Button
+        style="
+          background-color: red;
+          color: white;
+          font-weight: bold;
+          width: 100;
+        "
+        class="transBtn sm -rounded-lg"
+        text="Cancelar"
+        (tap)="closeLongListPicker()"
+      ></Button>
+    </GridLayout>
+  </StackLayout>
+</GridLayout>
