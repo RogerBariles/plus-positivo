@@ -61,26 +61,22 @@ export class LoginComponent implements OnInit {
             });
 
             if (this.formLogin.valid) {
-
                 const msj = "Credenciales Incorrectas";
-                this.authService
-                    .loguin(this.formLogin)
-                    .subscribe(
-                        (resp: Token) => {
-                            setString("token", resp.id_token);
-                            setString("userLogin", this.username.toLowerCase());
+                this.authService.loguin(this.formLogin).subscribe(
+                    (resp: Token) => {
+                        setString("token", resp.id_token);
+                        setString("userLogin", this.username.toLowerCase());
 
-                            this.loguinVerify();
-                        },
-                        (error) => {
-                            this.validUser = true;
-                            this.formLogin.get("password").setValue("");
-                            this.showSimpleSnackbar(msj);
+                        this.loguinVerify();
+                    },
+                    (error) => {
+                        this.validUser = true;
+                        this.formLogin.get("password").setValue("");
+                        this.showSimpleSnackbar(msj);
                     }
                 );
             }
         } else {
-            
         }
     }
 
@@ -92,17 +88,15 @@ export class LoginComponent implements OnInit {
                 (resp: People[]) => {
                     this.spinner = false;
                     if (resp.length > 0) {
-                        this.router.navigate([
-                            "/home/",
-                            this.formLogin.get("username").value,
-                        ]);
+                        this.router.navigate(["/home/", resp[0].apellidosPrs]);
                     } else {
                         this.showSimpleSnackbar(msj);
                     }
                 },
                 (error) => {
                     this.showSimpleSnackbar(msj);
-                });
+                }
+            );
     }
 
     showSimpleSnackbar(msj) {

@@ -1,0 +1,121 @@
+<ActionBar title=""> </ActionBar>
+
+<GridLayout id="profileFondo">
+  <FlexboxLayout
+    flexDirection="column"
+    justifyContent="space-around"
+    alignItems="stretch"
+  >
+    <label
+      class="textProfile"
+      textAlignment="center"
+      text="Hola {{ userName }}"
+    ></label>
+    <StackLayout
+      width="100%"
+      orientation="horizontal"
+      horizontalAlignment="center"
+      verticalAlignment="middle"
+    >
+      <label
+        class="textProfile"
+        textAlignment="center"
+        text=" Bienvenid@ a "
+      ></label>
+
+      <label class="textProfile" style="color: #ffc000" text=" TU PERFIL">
+      </label>
+    </StackLayout>
+
+    <StackLayout
+      width="100%"
+      orientation="horizontal"
+      horizontalAlignment="center"
+      verticalAlignment="middle"
+      style="margin-top: 25"
+    >
+      <label
+        horizontalAlignment="stretch"
+        width="40%"
+        text="Promedio Acumulado"
+        style="text-align: center"
+      ></label>
+      <label horizontalAlignment="stretch" width="5%"> </label>
+
+      <label
+        horizontalAlignment="stretch"
+        width="40%"
+        text="Promedio Mensual"
+        style="text-align: center"
+      ></label>
+      <Image
+        width="5%"
+        src="font://&#xf00e;"
+        class="fas fa-search-plus"
+        style="height: 23; color: #ffc000;
+        margin-left: -13;"
+      ></Image>
+    </StackLayout>
+
+    <StackLayout
+      width="100%"
+      orientation="horizontal"
+      horizontalAlignment="center"
+      verticalAlignment="middle"
+      style="margin-top: 10"
+    >
+      <label
+        horizontalAlignment="stretch"
+        width="40%"
+        text="1321"
+        id="average"
+      ></label>
+      <label horizontalAlignment="stretch" width="5%"> </label>
+      <label
+        horizontalAlignment="stretch"
+        width="40%"
+        text="132"
+        id="average"
+      ></label>
+    </StackLayout>
+
+    <label
+      style="margin-top: 35; margin-left: 10"
+      text="Podés consultar aquí los comentarios recibidos:"
+    ></label>
+
+    <TextView
+      height="43%"
+      hind="Cargando opiniones..."
+      text="hola"
+      returnKeyType="done"
+      autocorrect="false"
+      editable="false"
+    >
+    </TextView>
+
+    <StackLayout
+      width="100%"
+      orientation="horizontal"
+      horizontalAlignment="center"
+      verticalAlignment="middle"
+    >
+      <Button
+        width="40%"
+        horizontalAlignment="stretch"
+        class="btnProfile"
+        text="Plan de Acción"
+        (tap)="getPlanDeAccion()"
+      ></Button>
+      <label horizontalAlignment="stretch" width="5%"> </label>
+
+      <Button
+        width="40%"
+        horizontalAlignment="stretch"
+        class="btnProfile"
+        text="Plan Canje"
+        (tap)="getPlanCanje()"
+      ></Button>
+    </StackLayout>
+  </FlexboxLayout>
+</GridLayout>
