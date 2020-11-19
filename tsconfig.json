@@ -15,6 +15,15 @@
       "paths": {
           "~/*": [
               "app/*"
+          ],
+          "@environments/*": [
+            "src/environments/*"
+          ],
+          "@services/*": [
+            "src/app/services/*"
+          ],
+          "@models/*": [
+            "src/app/models/*"
           ]
       }
   },

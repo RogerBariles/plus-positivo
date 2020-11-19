@@ -88,7 +88,7 @@ export class LoginComponent implements OnInit {
                 (resp: People[]) => {
                     this.spinner = false;
                     if (resp.length > 0) {
-                        this.router.navigate(["/home/", resp[0].apellidosPrs]);
+                        this.router.navigate(["/home/", resp[0].id]);
                     } else {
                         this.showSimpleSnackbar(msj);
                     }

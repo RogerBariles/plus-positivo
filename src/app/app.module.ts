@@ -13,6 +13,7 @@ import { AuthHttpInterceptor } from "../app/services/auth-http.interceptor";
 import { AuthenticationService } from "../app/services/authentication.service";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PersonsService } from "../app/services/persons.service";
+import { OpinionsService } from "./services/opinions.service";
 
 //------- Components
 import { HomeComponent } from "./components/home/home.component";
@@ -49,6 +50,7 @@ import { ProfileComponent } from "./components/home/profile/profile.component";
         },
         AuthenticationService,
         PersonsService,
+        OpinionsService,
     ],
     schemas: [NO_ERRORS_SCHEMA],
     entryComponents: [ModalContextComponent],
