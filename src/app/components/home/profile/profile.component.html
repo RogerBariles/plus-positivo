@@ -31,16 +31,6 @@
 
         <label style="margin-top: 35; margin-left: 10" text="Podés consultar aquí los comentarios recibidos:"></label>
 
-        <!-- <ScrollView scroll="onScroll($event)" id="cajaComentarios" height="43%" style="margin: 0 10;">
-            <ListView height="100%" [items]="opiniones" separatorColor="transparent">
-                <ng-template let-country="item" let-i="index" let-odd="odd" let-even="even">
-                    <label height="auto" text="{{opiniones[i].fechaOpi}} {{opiniones[i].comentarioOpi}}" style="color: black">
-          </label>
-                </ng-template>
-            </ListView>
-        </ScrollView> -->
-
-
         <StackLayout id="cajaComentarios" height="43%" style="margin: 0 10;">
             <StackLayout id="stackComentarios" *ngFor="let opinion of opiniones">
                 <label textWrap="true" text="{{opinion.fechaOpi}} {{opinion.comentarioOpi}}">

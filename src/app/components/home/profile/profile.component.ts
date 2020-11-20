@@ -36,6 +36,7 @@ export class ProfileComponent implements OnInit {
         this.getPersons();
     }
 
+    //correspondiente al boton de regreso (lado izquierdo del actionBar)
     onGoBack() {
         this.router.backToPreviousPage();
     }
@@ -44,32 +45,38 @@ export class ProfileComponent implements OnInit {
         return this.router.canGoBack();
     }
 
+    // buscamos persona logueada por el id
     getPersons() {
         this.personaService
             .getPeopleById(this.idUser)
             .subscribe((next: People) => {
                 this.peopleProfile = next;
+                //cuando obtenemos la informacion completa , pasamos a obtener los promedios correspondientes
                 this.changePromedios(this.peopleProfile.codigoPrs);
             });
     }
 
+    //buscamos los promedios con el codigoPrs correspondiente a la persona logueada
     changePromedios(codigoPrs) {
         this.opinionsService
             .getOpinionsPromedioUser(codigoPrs)
             .subscribe((next: Promedios) => {
+                //recortamos la cantidad de decimales de los promedios
                 this.promPeople.promLiderados = +next.promLiderados.toFixed(4);
                 this.promPeople.promUser = +next.promUser.toFixed(4);
                 this.getAllOpinions(this.peopleProfile.id);
             });
     }
 
+    //pedimos las opiniones correspondiente al id de la persona logeada
     getAllOpinions(id) {
         this.opinionsService.getAllOpinionsByOpinadoId(id).subscribe(
             (resp: Opiniones[]) => {
                 let i = 0;
                 this.opiniones = resp;
-                this.opiniones.forEach(un => {
-                    un.fechaOpi = this.cleanFechaOpinion(un.fechaOpi);
+                this.opiniones.forEach(anOpinion => {
+                    //seteamos nueva estructura para la fecha de la opinion
+                    anOpinion.fechaOpi = this.cleanFechaOpinion(anOpinion.fechaOpi);
                 })
 
             }, error => {
@@ -79,16 +86,11 @@ export class ProfileComponent implements OnInit {
             });
     }
 
-
+    //reordenamos la fecha
     cleanFechaOpinion(fechaOpinion): string {
         let fecha = fechaOpinion.replace('T', ' ');
 
-        return fecha.substring(0, 16) + "=";
-    }
-
-
-    onScroll(event) {
-        console.log('hoñlas');
+        return fecha.substring(0, 16) + ":";
     }
 
     //  Función para boton Plan de accion, sin niguna funcionalidad por el momento

@@ -1,3 +1,44 @@
 #compotencyBackground {
     background-color: #32383e;
 }
+
+ActionBar {
+    background-color: #32383e;
+    color: white;
+}
+
+.textWhite {
+    color: white;
+    margin-left: 8;
+    margin-top: 5;
+}
+
+#btnEnviar {
+    background-color: #ffc000;
+    color: black;
+    font-weight: bold;
+}
+
+#cajaCompetencia {
+    background-color: white;
+    color: black;
+    border-radius: 7;
+    margin: 0 10;
+    margin-bottom: 7;
+}
+
+#textHeaderApe {
+    font-size: 12;
+    font-weight: bold;
+    color: white;
+}
+
+#textHeaderNom {
+    font-size: 12;
+    color: white;
+}
+
+#textHeaderPuesto {
+    font-size: 12;
+    color: white;
+}

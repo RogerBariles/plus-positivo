@@ -23,7 +23,7 @@ import { PersonaComponent } from "./components/persona/persona.component";
 import { ModalContextComponent } from "./components/persona/modal-context/modal-context.component";
 import { BrowserModule } from "@angular/platform-browser";
 import { ProfileComponent } from "./components/home/profile/profile.component";
-
+import { CompetencyAssessment } from "./components/home/ Competency-assessment/competency-assessment.component";
 @NgModule({
     bootstrap: [AppComponent],
     imports: [
@@ -41,6 +41,7 @@ import { ProfileComponent } from "./components/home/profile/profile.component";
         PersonaComponent,
         ModalContextComponent,
         ProfileComponent,
+        CompetencyAssessment
     ],
     providers: [
         {
@@ -55,4 +56,4 @@ import { ProfileComponent } from "./components/home/profile/profile.component";
     schemas: [NO_ERRORS_SCHEMA],
     entryComponents: [ModalContextComponent],
 })
-export class AppModule {}
+export class AppModule { }
