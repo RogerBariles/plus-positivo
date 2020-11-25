@@ -1,5 +1,8 @@
 <ActionBar title="">
-    <ActionItem style="height: 40px; width:40px;" icon="~/fonts/5ef7abae7570fd1c70f4a92af72f66d6.gif" ios.position="right"></ActionItem>
+    <DockLayout width="auto" height="auto" stretchLastChild="false">
+        <Img src="~/fonts/5ef7abae7570fd1c70f4a92af72f66d6.gif" dock="left" width="60">
+        <Img src="res://logosplus" dock="right" width="80">
+    </DockLayout>
     <NavigationButton text="Back" android.systemIcon="ic_menu_back" *ngIf="canGoBack" (tap)="onGoBack()">
     </NavigationButton>
 </ActionBar>
@@ -12,7 +15,7 @@
             <label class="textProfile" style="font-size: 22;" textAlignment="center" text=" Bienvenid@ a "></label>
 
             <label class="textProfile" style="color: #ffc000; font-size: 22;" text=" TU PERFIL">
-      </label>
+            </label>
         </StackLayout>
 
         <StackLayout width="100%" orientation="horizontal" horizontalAlignment="center" verticalAlignment="middle" style="margin-top: 25">
@@ -31,11 +34,13 @@
 
         <label style="margin-top: 35; margin-left: 10" text="Podés consultar aquí los comentarios recibidos:"></label>
 
-        <StackLayout id="cajaComentarios" height="43%" style="margin: 0 10;">
-            <StackLayout id="stackComentarios" *ngFor="let opinion of opiniones">
-                <label textWrap="true" text="{{opinion.fechaOpi}} {{opinion.comentarioOpi}}">
-        </label>
-            </StackLayout>
+        <StackLayout id="cajaComentarios" height="46%">
+            <ListView height="100%" [items]="opiniones" (loadMoreItems)="evento()">
+                <ng-template let-country="item" let-i="index" let-odd="odd" let-even="even">
+                    <label textWrap="true" text="{{opiniones[i]?.fechaOpi}} {{opiniones[i]?.comentarioOpi}}">
+                    </label>
+                </ng-template>
+            </ListView>
         </StackLayout>
 
         <StackLayout width="100%" orientation="horizontal" horizontalAlignment="center" verticalAlignment="middle">

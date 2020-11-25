@@ -1,4 +1,8 @@
 <ActionBar title="">
+    <DockLayout width="auto" height="auto" stretchLastChild="false">
+        <Img src="~/fonts/5ef7abae7570fd1c70f4a92af72f66d6.gif" dock="left" width="60">
+        <Img src="res://logosplus" dock="right" width="80">
+    </DockLayout>
     <NavigationButton text="Back" android.systemIcon="ic_menu_back" *ngIf="canGoBack" (tap)="onGoBack()">
     </NavigationButton>
 </ActionBar>
@@ -7,22 +11,22 @@
 
     <ActivityIndicator [busy]="spinner"></ActivityIndicator>
 
-    <FlexboxLayout flexDirection="column" justifyContent="space-around" alignItems="stretch" *ngIf="!spinner">
+    <FlexboxLayout flexDirection="column" justifyContent="space-around" alignItems="stretch" *ngIf="!spinner" width="100%" height="100%">
 
-        <StackLayout orientation="horizontal" horizontalAlignment="center" verticalAlignment="middle" width="100%">
-            <label class="textWhite" horizontalAlignment="stretch" width="40%" text="Se está valuando a:"></label>
-            <StackLayout style="margin-top: 10;" width="100%" orientation="horizontal" horizontalAlignment="center" verticalAlignment="middle">
-                <Image width="20%" id="imagePrs" src=""></Image>
-                <FlexboxLayout width="80%" flexDirection="column">
-                    <label id="textHeaderApe" text="apellido"></label>
-                    <label id="textHeaderNom" text="nombre"></label>
-                    <label id="textHeaderPuesto" text="Puesto: "></label>
+        <StackLayout height="20%" orientation="horizontal" horizontalAlignment="center" verticalAlignment="middle" width="100%">
+            <label class="textWhite" horizontalAlignment="stretch" width="30%" text="Se está valuando a:"></label>
+            <StackLayout style="margin-top: 5; " width="70%" orientation="horizontal" horizontalAlignment="center" verticalAlignment="middle">
+                <Image width="50%" id="imagePrs" src="{{peopleEvaluatedImg}}"></Image>
+                <FlexboxLayout style="margin-left: 5;" width="50%" flexDirection="column">
+                    <label id="textHeaderApe" text="{{peopleEvaluated?.apellidosPrs}}"></label>
+                    <label id="textHeaderNom" text="{{peopleEvaluated?.nombresPrs}}"></label>
+                    <label id="textHeaderPuesto" text="Puesto: {{peopleEvaluated?.puesto.descPue}}"></label>
                 </FlexboxLayout>
             </StackLayout>
         </StackLayout>
 
 
-        <StackLayout height="80%">
+        <StackLayout height="70%">
             <WrapLayout style="margin-top: 25;" orientation="horizontal" width="100%" height="100%">
                 <StackLayout width="50%" *ngFor="let competencia of competencias">
                     <StackLayout style="margin: 8 0;">
@@ -30,16 +34,16 @@
                             <label style="margin: 20 0;" textAlignment="center" text="Competencia"></label>
                         </StackLayout>
                         <StackLayout orientation="horizontal" horizontalAlignment="center" verticalAlignment="middle">
-                            <StackLayout *ngFor="let star of stars">
-                                <Image #starB (tap)="countStar(star)" src="font://&#xf005;" class="fas" style="height: 25; margin: 0 3" tintColor="{{ color[star] }}"></Image>
-                            </StackLayout>
+                            <!-- <StackLayout *ngFor="let star of competencia?.stars">
+                                <Image #starB (tap)="countStar(star,competencia)" src="font://&#xf005;" class="fas" style="height: 25; margin: 0 3" tintColor="{{ color[star] }}"></Image>
+                            </StackLayout> -->
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>
             </WrapLayout>
         </StackLayout>
 
-        <Button id="btnEnviar" text="Enviar" (tap)="onEnviar()"></Button>
+        <Button height="10%" id="btnEnviar" text="Enviar" (tap)="onEnviar()"></Button>
 
     </FlexboxLayout>
 

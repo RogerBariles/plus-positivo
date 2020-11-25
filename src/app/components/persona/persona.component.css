@@ -1,5 +1,5 @@
 ActionBar {
-    background-color:  #32383e;
+    background-color: #32383e;
     font-size: 12;
     color: #ffc000;
 }
@@ -7,6 +7,7 @@ ActionBar {
 #imagePrs {
     width: 40%;
     height: 40%;
+    margin-left: 15;
 }
 
 #textHeaderApe {
@@ -70,10 +71,16 @@ ListPicker {
     margin: 5 20;
 }
 
-
 .text {
     color: red;
     font-size: 10;
     margin-left: 40;
     margin-top: -5;
-  }
+}
+
+.advancedOptions {
+    color: white;
+    font-size: 14;
+    text-align: right;
+    margin-right: 14;
+}

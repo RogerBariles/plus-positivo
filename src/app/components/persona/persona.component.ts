@@ -10,10 +10,11 @@ import { SnackBar } from "@nativescript-community/ui-material-snackbar";
 import { People } from "src/app/models/people";
 import { PersonsService } from "../../services/persons.service";
 import { Context } from "../../models/opinion";
-import { ModalDialogService } from "@nativescript/angular";
+import { ModalDialogService, RouterExtensions } from "@nativescript/angular";
 import { ModalContextComponent } from "./modal-context/modal-context.component";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { getString } from "@nativescript/core/application-settings";
+import { CommonService } from "@services/common.service";
 @Component({
     selector: "ns-persona",
     templateUrl: "./persona.component.html",
@@ -35,7 +36,7 @@ export class PersonaComponent implements OnInit {
     newDescirpcion: string;
     contexts: Context[];
     selectCtx: Context;
-    color: string[] = ['','','','','',''];
+    color: string[] = ['', '', '', '', '', ''];
     showingCreateTicket: any = false;
     showingLongListPicker: any = false;
 
@@ -43,11 +44,13 @@ export class PersonaComponent implements OnInit {
     selectedStar: number = 0;
 
     constructor(
+        private routerExtensions: RouterExtensions,
         private router: Router,
         private modalDialog: ModalDialogService,
         private vcRef: ViewContainerRef,
         private activateRoute: ActivatedRoute,
-        private personsService: PersonsService
+        private personsService: PersonsService,
+        private commonService: CommonService
     ) {
         this.initArrayStar();
         this.spinner = true;
@@ -59,6 +62,8 @@ export class PersonaComponent implements OnInit {
     }
 
     ngOnInit() {
+        //limpiamos las variables de common service para luego guardar nuevos datos
+        this.commonService.clean();
         this.peopleLoginFun();
         this.getPeopleSelect();
         this.getAllContext();
@@ -70,6 +75,7 @@ export class PersonaComponent implements OnInit {
             .getPeopleByCondigoPrs(peolpe)
             .subscribe((resp: People) => {
                 this.peopleLogin = resp;
+                this.commonService.personaLogueada = resp;
             });
     }
 
@@ -86,6 +92,7 @@ export class PersonaComponent implements OnInit {
         this.personsService
             .getPeopleById(this.idPersonSelect)
             .subscribe((resp: People) => {
+                this.commonService.personaAEvaluar = resp;
                 this.people = resp;
                 this.peopleImg =
                     "data:" +
@@ -102,7 +109,7 @@ export class PersonaComponent implements OnInit {
             (next: Context[]) => {
                 this.contexts = next;
             },
-            (error) => {}
+            (error) => { }
         );
     }
 
@@ -112,10 +119,10 @@ export class PersonaComponent implements OnInit {
 
     updatePeople() {
         this.validField();
-        if(!this.validCtx && !this.validStar) {
+        if (!this.validCtx && !this.validStar) {
             this.spinner = true;
             let fechaA = new Date();
-    
+
             let jsonCtx = {
                 comentarioOpi: this.newDescirpcion,
                 contexto: this.selectCtx,
@@ -125,7 +132,7 @@ export class PersonaComponent implements OnInit {
                 opinado: this.people,
                 opinante: this.peopleLogin[0],
             };
-    
+
             this.personsService.updateOpinionPeople(jsonCtx).subscribe(
                 (resp) => {
                     this.snackbar
@@ -163,7 +170,7 @@ export class PersonaComponent implements OnInit {
                 }
             );
 
-        } 
+        }
     }
 
     onchangeContext() {
@@ -221,12 +228,26 @@ export class PersonaComponent implements OnInit {
 
     validField() {
         this.validCtx = !this.ctx;
-        this.validStar = this.selectedStar == 0 ? true : false; 
+        this.validStar = this.selectedStar == 0 ? true : false;
     }
 
     initArrayStar() {
         for (let i = 0; i < 6; i++) {
             this.color[i] = "white";
         }
+    }
+
+    //metodo para abrir opciones avanzadas donde aparecera las competencias a evaluar
+    advancedOptions() {
+        this.router.navigate(["/competency/", this.idPersonSelect]);
+    }
+
+    //correspondiente al boton de regreso (lado izquierdo del actionBar)
+    onGoBack() {
+        this.routerExtensions.backToPreviousPage();
+    }
+
+    get canGoBack() {
+        return this.routerExtensions.canGoBack();
     }
 }

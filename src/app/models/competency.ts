@@ -4,6 +4,7 @@ export class Compentency {
     descCom: string; //max-length = 200;
     id: number;
     tipo: CompentencyType;
+    stars?: number[];
 }
 
 export class CompentencyType {

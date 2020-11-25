@@ -1,0 +1,23 @@
+ActionBar {
+    background-color: #32383e;
+    color: white;
+}
+
+GridLayout {
+    background-color: #32383e;
+}
+
+.btn {
+    background-color: #ffc000;
+    color: black;
+    font-weight: bold;
+    font-size: 15;
+}
+
+#btn {
+    background-color: #ffc000;
+    height: 45;
+    width: 50;
+    border-radius: 2;
+    margin: 0 16;
+}

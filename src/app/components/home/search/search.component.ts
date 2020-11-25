@@ -1,15 +1,16 @@
 import { Component, OnInit } from "@angular/core";
-import { PersonsService } from "../../services/persons.service";
-import { People } from "../../models/people";
+import { PersonsService } from "@services/persons.service";
+import { People } from "@models/people";
 import { Router } from "@angular/router";
 import { getString } from "@nativescript/core/application-settings";
+import { RouterExtensions } from "@nativescript/angular";
 
 @Component({
-    selector: "ns-home",
-    templateUrl: "./home.component.html",
-    styleUrls: ["./home.component.css"],
+    selector: "ns-search",
+    templateUrl: "./search.component.html",
+    styleUrls: ["./search.component.css"],
 })
-export class HomeComponent implements OnInit {
+export class SearchComponent implements OnInit {
     personsFilter: string;
     spinner: boolean;
     loadPeople: boolean;
@@ -17,6 +18,7 @@ export class HomeComponent implements OnInit {
     filterNot: boolean;
 
     constructor(
+        private routerExtensions: RouterExtensions,
         private personsService: PersonsService,
         private router: Router
     ) {
@@ -25,7 +27,7 @@ export class HomeComponent implements OnInit {
         this.filterNot = false;
     }
 
-    ngOnInit() {}
+    ngOnInit() { }
 
     ngOnChanges(): void {
     }
@@ -53,7 +55,7 @@ export class HomeComponent implements OnInit {
                     this.spinner = false;
                 }
             },
-            (error) => {}
+            (error) => { }
         );
     }
 
@@ -64,6 +66,15 @@ export class HomeComponent implements OnInit {
     onTextChange() {
         setTimeout(() => {
             this.applyFIlter();
-        },500);
+        }, 500);
+    }
+
+    //correspondiente al boton de regreso (lado izquierdo del actionBar)
+    onGoBack() {
+        this.routerExtensions.backToPreviousPage();
+    }
+
+    get canGoBack() {
+        return this.routerExtensions.canGoBack();
     }
 }

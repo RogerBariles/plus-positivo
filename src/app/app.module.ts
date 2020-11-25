@@ -14,16 +14,18 @@ import { AuthenticationService } from "../app/services/authentication.service";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PersonsService } from "../app/services/persons.service";
 import { OpinionsService } from "./services/opinions.service";
+import { CommonService } from "@services/common.service"
 
 //------- Components
-import { HomeComponent } from "./components/home/home.component";
+import { SearchComponent } from "./components/home/search/search.component";
 import { AppComponent } from "./app.component";
 import { LoginComponent } from "./components/authentication/login/login.component";
 import { PersonaComponent } from "./components/persona/persona.component";
 import { ModalContextComponent } from "./components/persona/modal-context/modal-context.component";
 import { BrowserModule } from "@angular/platform-browser";
 import { ProfileComponent } from "./components/home/profile/profile.component";
-import { CompetencyAssessment } from "./components/home/ Competency-assessment/competency-assessment.component";
+import { CompetencyAssessmentComponent } from "./components/home/ Competency-assessment/competency-assessment.component";
+import { MenuComponent } from './components/home/menu/menu.component';
 @NgModule({
     bootstrap: [AppComponent],
     imports: [
@@ -37,11 +39,12 @@ import { CompetencyAssessment } from "./components/home/ Competency-assessment/c
     declarations: [
         AppComponent,
         LoginComponent,
-        HomeComponent,
+        SearchComponent,
         PersonaComponent,
         ModalContextComponent,
         ProfileComponent,
-        CompetencyAssessment
+        CompetencyAssessmentComponent,
+        MenuComponent
     ],
     providers: [
         {
@@ -52,6 +55,7 @@ import { CompetencyAssessment } from "./components/home/ Competency-assessment/c
         AuthenticationService,
         PersonsService,
         OpinionsService,
+        CommonService
     ],
     schemas: [NO_ERRORS_SCHEMA],
     entryComponents: [ModalContextComponent],

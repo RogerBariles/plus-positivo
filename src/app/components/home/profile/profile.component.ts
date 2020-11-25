@@ -6,6 +6,7 @@ import { ActivatedRoute } from "@angular/router";
 import { OpinionsService } from "@services/opinions.service";
 import { Promedios } from "@models/opinion";
 import { RouterExtensions } from "@nativescript/angular";
+import { SnackBar } from "@nativescript-community/ui-material-snackbar";
 
 @Component({
     selector: "ns-profile",
@@ -19,6 +20,8 @@ export class ProfileComponent implements OnInit {
     peopleProfile: People;
     idUser: number;
     spinner: boolean;
+    snackbar = new SnackBar();
+
 
 
     constructor(
@@ -28,8 +31,9 @@ export class ProfileComponent implements OnInit {
         private router: RouterExtensions
     ) {
         this.promPeople = new Promedios();
+        this.opiniones = [];
         this.spinner = true;
-        this.idUser = this.routerActivate.snapshot.params.user;
+        this.idUser = this.routerActivate.snapshot.params.idUser;
     }
 
     ngOnInit() {
@@ -38,6 +42,7 @@ export class ProfileComponent implements OnInit {
 
     //correspondiente al boton de regreso (lado izquierdo del actionBar)
     onGoBack() {
+        this.opiniones = [];
         this.router.backToPreviousPage();
     }
 
@@ -53,6 +58,18 @@ export class ProfileComponent implements OnInit {
                 this.peopleProfile = next;
                 //cuando obtenemos la informacion completa , pasamos a obtener los promedios correspondientes
                 this.changePromedios(this.peopleProfile.codigoPrs);
+            }, error => {
+                this.snackbar
+                    .action({
+                        message: `Error al obtener usuario`,
+                        textColor: "white",
+                        actionTextColor: "black",
+                        backgroundColor: "red",
+                        hideDelay: 2000,
+                    })
+                    .then((resp) => {
+                        this.spinner = false;
+                    });
             });
     }
 
@@ -62,9 +79,21 @@ export class ProfileComponent implements OnInit {
             .getOpinionsPromedioUser(codigoPrs)
             .subscribe((next: Promedios) => {
                 //recortamos la cantidad de decimales de los promedios
-                this.promPeople.promLiderados = +next.promLiderados.toFixed(4);
-                this.promPeople.promUser = +next.promUser.toFixed(4);
+                this.promPeople.promLiderados = +next.promLiderados.toFixed(3);
+                this.promPeople.promUser = +next.promUser.toFixed(3);
                 this.getAllOpinions(this.peopleProfile.id);
+            }, error => {
+                this.snackbar
+                    .action({
+                        message: `Error al obtener promedios`,
+                        textColor: "white",
+                        actionTextColor: "black",
+                        backgroundColor: "red",
+                        hideDelay: 2000,
+                    })
+                    .then((resp) => {
+                        this.spinner = false;
+                    });
             });
     }
 
@@ -72,15 +101,32 @@ export class ProfileComponent implements OnInit {
     getAllOpinions(id) {
         this.opinionsService.getAllOpinionsByOpinadoId(id).subscribe(
             (resp: Opiniones[]) => {
-                let i = 0;
-                this.opiniones = resp;
-                this.opiniones.forEach(anOpinion => {
-                    //seteamos nueva estructura para la fecha de la opinion
-                    anOpinion.fechaOpi = this.cleanFechaOpinion(anOpinion.fechaOpi);
-                })
+                if (this.opiniones) {
 
+                    resp.forEach(unaOpinion => {
+                        unaOpinion.fechaOpi = this.cleanFechaOpinion(unaOpinion.fechaOpi);
+
+                        this.opiniones.push(unaOpinion);
+                    })
+                } else {
+                    this.opiniones = resp;
+                    this.opiniones.forEach(anOpinion => {
+                        //seteamos nueva estructura para la fecha de la opinion
+                        anOpinion.fechaOpi = this.cleanFechaOpinion(anOpinion.fechaOpi);
+                    })
+                }
             }, error => {
-
+                this.snackbar
+                    .action({
+                        message: `Error al obtener opiniones`,
+                        textColor: "white",
+                        actionTextColor: "black",
+                        backgroundColor: "red",
+                        hideDelay: 2000,
+                    })
+                    .then((resp) => {
+                        this.spinner = false;
+                    });
             }, () => {
                 this.spinner = false;
             });
@@ -90,7 +136,7 @@ export class ProfileComponent implements OnInit {
     cleanFechaOpinion(fechaOpinion): string {
         let fecha = fechaOpinion.replace('T', ' ');
 
-        return fecha.substring(0, 16) + ":";
+        return fecha.substring(0, 16) + " -";
     }
 
     //  Función para boton Plan de accion, sin niguna funcionalidad por el momento
@@ -98,4 +144,8 @@ export class ProfileComponent implements OnInit {
 
     // Función para el boton Plan canje, sin ninguna funcionalidad por el momento
     getPlanCanje() { }
+
+    evento() {
+        this.getAllOpinions(this.peopleProfile.id);
+    }
 }

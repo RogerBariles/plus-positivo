@@ -7,7 +7,7 @@ import { environment } from "@environments/environment";
 export class OpinionsService {
 
     endPoint = "api/opinions";
-    size: number = 8;
+    size: number = 5;
     page: number = 0;
 
     constructor(private http: HttpClient) { }
@@ -30,7 +30,6 @@ export class OpinionsService {
             .append("size", this.size.toString())
             .append("sort", "fechaOpi,desc");
         this.page++;
-        this.size++;
 
         return this.http
             .get(environment.apiUrl + this.endPoint, { params: param })

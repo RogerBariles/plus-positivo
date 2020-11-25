@@ -1,0 +1,22 @@
+<ActionBar title="">
+    <DockLayout width="auto" height="auto" stretchLastChild="false">
+        <Img src="res://logosplus" dock="right" width="80">
+    </DockLayout>
+</ActionBar>
+
+<GridLayout>
+
+    <FlexboxLayout flexDirection="column" justifyContent="space-around" alignItems="stretch">
+
+        <Image src="~/fonts/5ef7abae7570fd1c70f4a92af72f66d6.gif" width="50%" class="fab"></Image>
+
+        <FlexboxLayout flexDirection="column" justifyContent="space-around" alignItems="stretch">
+            <StackLayout id="btn" orientation="horizontal" horizontalAlignment="center" verticalAlignment="center" (tap)="onMiProfile()">
+                <Image style="margin-left: -15;" src="font://&#xf406;" width="20% " height="40% " class="fas "></Image>
+                <label style="font-weight: bold; font-size: 17; margin: auto; margin-left: -12;" verticalAlignment="center" text="MI PERFIL"></label>
+            </StackLayout>
+            <Button class="btn" text="EVALUAR" (tap)="onCompetency()"></Button>
+        </FlexboxLayout>
+    </FlexboxLayout>
+
+</GridLayout>

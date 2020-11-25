@@ -1,0 +1,36 @@
+<ActionBar title="">
+    <DockLayout width="auto" height="auto" stretchLastChild="false">
+        <Img src="~/fonts/5ef7abae7570fd1c70f4a92af72f66d6.gif" dock="left" width="60">
+        <Img src="res://logosplus" dock="right" width="80">
+    </DockLayout>
+    <NavigationButton text="Back" android.systemIcon="ic_menu_back" *ngIf="canGoBack" (tap)="onGoBack()">
+    </NavigationButton>
+</ActionBar>
+
+<GridLayout class="homeFondo">
+    <GridLayout rows="auto,*" columns="2*,*">
+        <TextField row="0" col="0" [(ngModel)]="personsFilter" (textChange)="onTextChange()"></TextField>
+        <Button id="btnSerch" row="0" col="1" text="Búscar" (tap)="applyFIlter()"></Button>
+        <label style="margin-top: -20; color: white" row="1" col="0" text="Buscar" textAlignment="center"></label>
+    </GridLayout>
+
+    <GridLayout class="home">
+        <ActivityIndicator [busy]="spinner"></ActivityIndicator>
+        <label *ngIf="filterNot" class="notFilter" text="No hay datos encontrados" textAlignment="center"></label>
+        <GridLayout *ngIf="loadPeople" id="headerMenu" rows="auto,*" columns="2*,*">
+            <label row="0" col="0" class="text titleTable" text="Apellido"> </label>
+            <label row="0" col="1" class="text titleTable" style="margin-left: 30" text="Evaluar">
+      </label>
+        </GridLayout>
+
+        <ListView *ngIf="loadPeople" [items]="filterPeople" separatorColor="transparent">
+            <ng-template let-item="people" let-i="index" let-odd="odd">
+                <GridLayout [class.odd]="odd" (tap)="selectPerson(i)" rows="auto,*" columns="2*,*">
+                    <label row="0" col="0" class="text" text="{{ filterPeople[i]?.nombresPrs + ' ' + filterPeople[i]?.apellidosPrs }}" (tap)="selectPerson(i)">
+          </label>
+                    <Image (tap)="selectPerson(i)" row="0" col="1" class="fas fa-arrow-right" style="color: white;" src="font://&#xf061;"></Image>
+                </GridLayout>
+            </ng-template>
+        </ListView>
+    </GridLayout>
+</GridLayout>
