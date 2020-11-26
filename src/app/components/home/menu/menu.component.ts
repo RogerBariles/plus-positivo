@@ -21,12 +21,16 @@ export class MenuComponent implements OnInit {
     ngOnInit() {
     }
 
+    // --------------------------------------
     //redireccion al componente de Mi perfil
+    // --------------------------------------
     onMiProfile(): void {
         this.router.navigate(['/profile/', this.idUser]);
     }
 
+    // ----------------------------------------
     //redireccion al componente de competencias
+    // ----------------------------------------
     onCompetency(): void {
         this.router.navigate(['/search/', this.idUser]);
     }

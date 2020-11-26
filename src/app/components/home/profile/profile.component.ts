@@ -40,7 +40,9 @@ export class ProfileComponent implements OnInit {
         this.getPersons();
     }
 
+    // ----------------------------------------------------------------
     //correspondiente al boton de regreso (lado izquierdo del actionBar)
+    // ----------------------------------------------------------------
     onGoBack() {
         this.opiniones = [];
         this.router.backToPreviousPage();
@@ -50,7 +52,10 @@ export class ProfileComponent implements OnInit {
         return this.router.canGoBack();
     }
 
+
+    // ------------------------------------
     // buscamos persona logueada por el id
+    // ------------------------------------
     getPersons() {
         this.personaService
             .getPeopleById(this.idUser)
@@ -73,14 +78,21 @@ export class ProfileComponent implements OnInit {
             });
     }
 
+    // ---------------------------------------------------------------------------
     //buscamos los promedios con el codigoPrs correspondiente a la persona logueada
+    // ---------------------------------------------------------------------------
     changePromedios(codigoPrs) {
         this.opinionsService
             .getOpinionsPromedioUser(codigoPrs)
             .subscribe((next: Promedios) => {
                 //recortamos la cantidad de decimales de los promedios
-                this.promPeople.promLiderados = +next.promLiderados.toFixed(3);
-                this.promPeople.promUser = +next.promUser.toFixed(3);
+                if (next.promLiderados && next.promUser) {
+                    this.promPeople.promLiderados = +next.promLiderados.toFixed(1);
+                    this.promPeople.promUser = +next.promUser.toFixed(1);
+                } else {
+                    this.promPeople.promLiderados = 0;
+                    this.promPeople.promUser = 0;
+                }
                 this.getAllOpinions(this.peopleProfile.id);
             }, error => {
                 this.snackbar
@@ -97,7 +109,9 @@ export class ProfileComponent implements OnInit {
             });
     }
 
+    // -----------------------------------------------------------------
     //pedimos las opiniones correspondiente al id de la persona logeada
+    // -----------------------------------------------------------------
     getAllOpinions(id) {
         this.opinionsService.getAllOpinionsByOpinadoId(id).subscribe(
             (resp: Opiniones[]) => {
@@ -132,19 +146,29 @@ export class ProfileComponent implements OnInit {
             });
     }
 
-    //reordenamos la fecha
+    // ---------------------
+    //  reordenamos la fecha
+    // ---------------------
     cleanFechaOpinion(fechaOpinion): string {
         let fecha = fechaOpinion.replace('T', ' ');
 
         return fecha.substring(0, 16) + " -";
     }
-
+    // ---------------------------------------------------------------------------
     //  Función para boton Plan de accion, sin niguna funcionalidad por el momento
+    // ---------------------------------------------------------------------------
     getPlanDeAccion() { }
 
+
+    // ---------------------------------------------------------------------------
     // Función para el boton Plan canje, sin ninguna funcionalidad por el momento
+    // ---------------------------------------------------------------------------
     getPlanCanje() { }
 
+
+    // ------------------------------------------------------------------------
+    //  evento para cargar mas opiniones cuando el usuario scrollea hacia abajo
+    // ------------------------------------------------------------------------
     evento() {
         this.getAllOpinions(this.peopleProfile.id);
     }

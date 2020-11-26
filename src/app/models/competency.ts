@@ -3,8 +3,10 @@ export class Compentency {
     codigoCom: string; //max-length = 20;
     descCom: string; //max-length = 200;
     id: number;
-    tipo: CompentencyType;
-    stars?: number[];
+    status: string;
+    tipo?: CompentencyType;
+    stars?: string[];
+    numberStar?: number;
 }
 
 export class CompentencyType {
@@ -12,4 +14,18 @@ export class CompentencyType {
     codigoTpCom: string; //maxi-length:20
     descTpCom: string; //max-length: 200
     id: number;
+}
+
+export class CompetencyOpinions {
+    abrevCOp: string;
+    codigoCOp: string;
+    competencia1: Compentency;
+    competencia2: Compentency;
+    competencia3: Compentency;
+    competencia4: Compentency;
+    descCOp: string;
+    finCOp: string;
+    id: number;
+    inicioCOp: string;
+
 }

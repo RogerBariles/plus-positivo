@@ -18,25 +18,28 @@
             <StackLayout style="margin-top: 5; " width="70%" orientation="horizontal" horizontalAlignment="center" verticalAlignment="middle">
                 <Image width="50%" id="imagePrs" src="{{peopleEvaluatedImg}}"></Image>
                 <FlexboxLayout style="margin-left: 5;" width="50%" flexDirection="column">
-                    <label id="textHeaderApe" text="{{peopleEvaluated?.apellidosPrs}}"></label>
-                    <label id="textHeaderNom" text="{{peopleEvaluated?.nombresPrs}}"></label>
-                    <label id="textHeaderPuesto" text="Puesto: {{peopleEvaluated?.puesto.descPue}}"></label>
+                    <label textWrap="true" id="textHeaderApe" text="{{peopleEvaluated?.apellidosPrs}}"></label>
+                    <label textWrap="true" id="textHeaderNom" text="{{peopleEvaluated?.nombresPrs}}"></label>
+                    <label textWrap="true" id="textHeaderPuesto" text="Puesto: {{peopleEvaluated?.puesto.descPue}}"></label>
                 </FlexboxLayout>
             </StackLayout>
         </StackLayout>
 
 
         <StackLayout height="70%">
-            <WrapLayout style="margin-top: 25;" orientation="horizontal" width="100%" height="100%">
-                <StackLayout width="50%" *ngFor="let competencia of competencias">
+            <ActivityIndicator [busy]="loadCompetencia" style="margin-top: 20;"></ActivityIndicator>
+
+            <WrapLayout *ngIf="!loadCompetencia" style="margin-top: 25;" orientation="horizontal" width="100%" height="100%">
+                <StackLayout width="50%" *ngFor="let competencia of competencias, let i = index">
                     <StackLayout style="margin: 8 0;">
                         <StackLayout id="cajaCompetencia">
-                            <label style="margin: 20 0;" textAlignment="center" text="Competencia"></label>
+                            <label textWrap="true" style="margin: 20 0;" textAlignment="center" text="{{competencia?.descCom}}"></label>
                         </StackLayout>
                         <StackLayout orientation="horizontal" horizontalAlignment="center" verticalAlignment="middle">
-                            <!-- <StackLayout *ngFor="let star of competencia?.stars">
-                                <Image #starB (tap)="countStar(star,competencia)" src="font://&#xf005;" class="fas" style="height: 25; margin: 0 3" tintColor="{{ color[star] }}"></Image>
-                            </StackLayout> -->
+                            <StackLayout *ngFor="let star of stars, let j = index">
+                                <Image #starB (tap)="colorStar(star,i)" src="font://&#xf005;" class="fas" style="height: 22; margin: 0 3" tintColor="{{ competencias[i].stars[j+1] }}"></Image>
+                            </StackLayout>
+                            <Label *ngIf="competencias[i].numberStar" style="color: white; font-size: 15; margin: 0 5;" text="{{ competencias[i].numberStar }}"></Label>
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>

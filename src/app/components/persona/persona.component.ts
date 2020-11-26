@@ -226,9 +226,13 @@ export class PersonaComponent implements OnInit {
         this.closeLongListPicker();
     }
 
-    validField() {
-        this.validCtx = !this.ctx;
-        this.validStar = this.selectedStar == 0 ? true : false;
+    validField(status?) {
+        if (status == 0) {
+            return this.ctx && !(this.selectedStar == 0 ? true : false);
+        } else {
+            this.validCtx = !this.ctx;
+            this.validStar = this.selectedStar == 0 ? true : false;
+        }
     }
 
     initArrayStar() {

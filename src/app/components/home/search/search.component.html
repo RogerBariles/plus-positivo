@@ -20,14 +20,13 @@
         <GridLayout *ngIf="loadPeople" id="headerMenu" rows="auto,*" columns="2*,*">
             <label row="0" col="0" class="text titleTable" text="Apellido"> </label>
             <label row="0" col="1" class="text titleTable" style="margin-left: 30" text="Evaluar">
-      </label>
+            </label>
         </GridLayout>
 
         <ListView *ngIf="loadPeople" [items]="filterPeople" separatorColor="transparent">
             <ng-template let-item="people" let-i="index" let-odd="odd">
                 <GridLayout [class.odd]="odd" (tap)="selectPerson(i)" rows="auto,*" columns="2*,*">
-                    <label row="0" col="0" class="text" text="{{ filterPeople[i]?.nombresPrs + ' ' + filterPeople[i]?.apellidosPrs }}" (tap)="selectPerson(i)">
-          </label>
+                    <label row="0" col="0" class="text" text="{{ filterPeople[i]?.nombresPrs + ' ' + filterPeople[i]?.apellidosPrs }}"></label>
                     <Image (tap)="selectPerson(i)" row="0" col="1" class="fas fa-arrow-right" style="color: white;" src="font://&#xf061;"></Image>
                 </GridLayout>
             </ng-template>

@@ -41,7 +41,10 @@
                 </StackLayout>
                 <label class="text" text="Campo Requerido" *ngIf="validStar"></label>
                 <!-- isEnabled="{{ disabledButton }}" -->
-                <label class="advancedOptions" text="Avanzado..." (tap)="advancedOptions()"></label>
+                <StackLayout orientation="horizontal" horizontalAlignment="center" width="100%" style="margin: 3 2;">
+                    <Image *ngIf="validField(0)" src="font://&#xf101;" class="fas" style="height: 15; margin: 0 6; color: green"></Image>
+                    <label *ngIf="validField(0)" class="advancedOptions" text="Avanzado..." (tap)="advancedOptions()"></label>
+                </StackLayout>
                 <Button id="btnSave" text="Enviar" (tap)="updatePeople()"></Button>
             </FlexboxLayout>
         </GridLayout>
@@ -49,7 +52,8 @@
 </ScrollView>
 
 <GridLayout [visibility]="showingLongListPicker ? 'visible' : 'collapsed'" rows="*, auto, *" columns="30, *, 30">
-    <GridLayout style="background-color: rgba(0, 0, 0, 0.753)" rowSpan="3" colSpan="3" #longListPickerDimmer></GridLayout>
+    <GridLayout style="background-color: rgba(0, 0, 0, 0.753)" rowSpan="3" colSpan="3" #longListPickerDimmer>
+    </GridLayout>
     <StackLayout row="1" col="1" #longListPickerContainer style="background-color: white; border-radius: 10">
         <StackLayout>
             <ListView [items]="contexts" height="300">

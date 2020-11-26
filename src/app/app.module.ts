@@ -14,7 +14,8 @@ import { AuthenticationService } from "../app/services/authentication.service";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PersonsService } from "../app/services/persons.service";
 import { OpinionsService } from "./services/opinions.service";
-import { CommonService } from "@services/common.service"
+import { CommonService } from "@services/common.service";
+import { CompetencyService } from "@services/competency.service";
 
 //------- Components
 import { SearchComponent } from "./components/home/search/search.component";
@@ -55,7 +56,8 @@ import { MenuComponent } from './components/home/menu/menu.component';
         AuthenticationService,
         PersonsService,
         OpinionsService,
-        CommonService
+        CommonService,
+        CompetencyService
     ],
     schemas: [NO_ERRORS_SCHEMA],
     entryComponents: [ModalContextComponent],
