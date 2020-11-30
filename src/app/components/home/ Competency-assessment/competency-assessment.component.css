@@ -42,3 +42,9 @@ ActionBar {
     font-size: 12;
     color: white;
 }
+
+#txtEvaluar {
+    color: red;
+    font-size: 15;
+    text-align: center;
+}

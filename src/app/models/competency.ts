@@ -23,6 +23,8 @@ export class CompetencyOpinions {
     competencia2: Compentency;
     competencia3: Compentency;
     competencia4: Compentency;
+    competencia5: Compentency;
+    competencia6: Compentency;
     descCOp: string;
     finCOp: string;
     id: number;

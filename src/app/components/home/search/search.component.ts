@@ -32,6 +32,9 @@ export class SearchComponent implements OnInit {
     ngOnChanges(): void {
     }
 
+    // ---------------------------------------------
+    //  metodo para realizar la busqueda de personas
+    // ---------------------------------------------
     applyFIlter() {
         this.spinner = true;
         this.personsService.getAllPersonas(this.personsFilter).subscribe(
@@ -59,17 +62,27 @@ export class SearchComponent implements OnInit {
         );
     }
 
+    // -----------------------------------------------------------------
+    //  Una vez haya salido las persona correspondiente al buscador
+    //  al seleccionar un renglon redirigimos al componente persona
+    // -----------------------------------------------------------------
     selectPerson(index) {
         this.router.navigate(["/persona/", this.filterPeople[index].id]);
     }
 
+    // -----------------------------------------------------------------
+    //  Hacemos un setTimeOut para que la persona vaya escribiendo y vaya
+    //  buscando
+    // -----------------------------------------------------------------
     onTextChange() {
         setTimeout(() => {
             this.applyFIlter();
         }, 500);
     }
 
+    // -----------------------------------------------------------------
     //correspondiente al boton de regreso (lado izquierdo del actionBar)
+    // -----------------------------------------------------------------
     onGoBack() {
         this.routerExtensions.backToPreviousPage();
     }

@@ -35,6 +35,10 @@ export class LoginComponent implements OnInit {
         this.build();
     }
 
+
+    // -------------------------------
+    //  inicializacion de formulario
+    // -------------------------------
     build() {
         this.formLogin = new FormGroup({
             username: new FormControl(null, {
@@ -51,6 +55,12 @@ export class LoginComponent implements OnInit {
         }
     }
 
+    // -------------------------------------------------------------
+    //  Funcion para el boton de inicar sesion
+    //  - validamos los campos que esten completos
+    //  - le hacemos el loguin correspondiente para obtener el token
+    //      y lo guardamos en setString
+    // -------------------------------------------------------------
     getIn() {
         this.validField();
         if (!this.validPas && !this.validUser) {
@@ -71,6 +81,7 @@ export class LoginComponent implements OnInit {
                     },
                     (error) => {
                         this.validUser = true;
+                        this.validPas = true;
                         this.formLogin.get("password").setValue("");
                         this.showSimpleSnackbar(msj);
                     }
@@ -80,6 +91,11 @@ export class LoginComponent implements OnInit {
         }
     }
 
+
+    // ----------------------------------------------------------------------
+    //  Validamos si el usuario tiene un usuario para permitir su acceso
+    // - si asi es , redirigimos a home. De lo contrario sale msj de error
+    // ----------------------------------------------------------------------
     loguinVerify() {
         const msj = "Usuario no habilitado. Notifique a Administracion.";
         this.peopleService
@@ -99,6 +115,9 @@ export class LoginComponent implements OnInit {
             );
     }
 
+    // -----------------------------------------------
+    //  metodo para mostrar msj atravez de un snackbar
+    // -----------------------------------------------
     showSimpleSnackbar(msj) {
         this.snackbar
             .action({
@@ -114,6 +133,10 @@ export class LoginComponent implements OnInit {
             });
     }
 
+
+    // -----------------------------------------------------
+    // validamos cuando se ingrese datos al campo contraseña
+    // -----------------------------------------------------
     onTextChange(event) {
         this.password = event.value;
         if (this.password != "") {
@@ -121,6 +144,9 @@ export class LoginComponent implements OnInit {
         }
     }
 
+    // -----------------------------------------------------
+    // validamos cuando se ingrese datos al campo usuario
+    // -----------------------------------------------------
     onText(event) {
         this.username = event.value;
         if (this.username != "") {
@@ -128,6 +154,10 @@ export class LoginComponent implements OnInit {
         }
     }
 
+    // -----------------------------------------------------------
+    // validamos cuando quiere iniciar sesion si falta algun campo
+    // . si falta alguno mostramos "Campo Requerido".
+    // -----------------------------------------------------------
     validField() {
         this.validPas = this.password != "" ? false : true;
         this.validUser = this.username != "" ? false : true;

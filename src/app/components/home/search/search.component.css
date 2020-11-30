@@ -11,10 +11,6 @@ ActionBar {
     color: white;
 }
 
-ListView {
-    margin-top: 50;
-}
-
 #btnEdit {
     background-color: green;
     border-radius: 20;
