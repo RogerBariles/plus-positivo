@@ -23,7 +23,7 @@
             <label horizontalAlignment="stretch" width="5%"> </label>
 
             <label horizontalAlignment="stretch" width="40%" text="Promedio Personal" style="text-align: center; font-size: 13;"></label>
-            <Image width="5%" src="font://&#xf00e;" class="fas fa-search-plus" style="height: 23; color: #ffc000; margin-left: -13"></Image>
+            <Image *ngIf="false" width="5%" src="font://&#xf00e;" class="fas fa-search-plus" style="height: 23; color: #ffc000; margin-left: -13"></Image>
         </StackLayout>
 
         <StackLayout width="100%" orientation="horizontal" horizontalAlignment="center" verticalAlignment="middle" style="margin-top: 10">
@@ -44,10 +44,10 @@
         </StackLayout>
 
         <StackLayout width="100%" orientation="horizontal" horizontalAlignment="center" verticalAlignment="middle">
-            <Button width="40%" horizontalAlignment="stretch" class="btnProfile" text="Plan de Acción" (tap)="getPlanDeAccion()"></Button>
+            <Button *ngIf="false" isEnabled="false" width="40%" horizontalAlignment="stretch" class="btnProfile" text="Plan de Acción" (tap)="getPlanDeAccion()"></Button>
             <label horizontalAlignment="stretch" width="5%"> </label>
 
-            <Button width="40%" horizontalAlignment="stretch" class="btnProfile" text="Plan Canje" (tap)="getPlanCanje()"></Button>
+            <Button *ngIf="false" width="40%" horizontalAlignment="stretch" class="btnProfile" text="Plan Canje" (tap)="getPlanCanje()"></Button>
         </StackLayout>
     </FlexboxLayout>
 </GridLayout>

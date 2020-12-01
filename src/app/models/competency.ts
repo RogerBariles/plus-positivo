@@ -29,5 +29,12 @@ export class CompetencyOpinions {
     finCOp: string;
     id: number;
     inicioCOp: string;
+}
 
+export class OpinionCompetency {
+    competencia?: Compentency;
+    estrellasOpiCom: number;
+    id?: number;
+    opinion: {};
+    status?: string;
 }

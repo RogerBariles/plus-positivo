@@ -9,6 +9,9 @@ import { CommonService } from '@services/common.service';
 import { CompetencyService } from '@services/competency.service';
 import { OpinionsCompetencyService } from '@services/opinions-competency.service';
 import { PersonsService } from '@services/persons.service';
+import { OpinionsService } from '@services/opinions.service';
+import { Opiniones } from '@models/opinion';
+import { OpinionCompetency } from '@models/competency';
 
 @Component({
     selector: 'ns-competencyAssessment',
@@ -18,6 +21,7 @@ import { PersonsService } from '@services/persons.service';
 
 export class CompetencyAssessmentComponent implements OnInit {
 
+    OpinionCompetencyPrs: any;
     validCompetencia: boolean;
     loadCompetencia: boolean;
     peopleEvaluated: People;
@@ -31,10 +35,9 @@ export class CompetencyAssessmentComponent implements OnInit {
     constructor(
         private router: RouterExtensions,
         private routerActivated: ActivatedRoute,
-        private personsService: PersonsService,
+        private opinionService: OpinionsService,
         private commonService: CommonService,
         private competencyService: CompetencyService,
-        private opinionsCompetencyService: OpinionsCompetencyService
     ) {
         this.validCompetencia = true;
         this.loadCompetencia = true;
@@ -49,6 +52,30 @@ export class CompetencyAssessmentComponent implements OnInit {
 
         this.colorStar(0);
         this.spinner = false;
+        this.OpinionCompetencyPrs = this.commonService.getOpinionCompetencyPrs();
+
+        delete this.OpinionCompetencyPrs.contexto.abrevCtx;
+        delete this.OpinionCompetencyPrs.contexto.tipo.abrevTpCtx;
+        delete this.OpinionCompetencyPrs.contexto.status;
+
+        delete this.OpinionCompetencyPrs.opinado.imagenPrs;
+        delete this.OpinionCompetencyPrs.opinado.imagenPrsContentType;
+        delete this.OpinionCompetencyPrs.opinado.lider;
+        delete this.OpinionCompetencyPrs.opinado.nombresPrs;
+        delete this.OpinionCompetencyPrs.opinado.nacimientoPrs;
+        delete this.OpinionCompetencyPrs.opinado.fechaOpi;
+        delete this.OpinionCompetencyPrs.opinado.organizacion.abrevOrg;
+        delete this.OpinionCompetencyPrs.opinado.status;
+
+        delete this.OpinionCompetencyPrs.opinante.imagenPrs;
+        delete this.OpinionCompetencyPrs.opinante.imagenPrsContentType;
+        delete this.OpinionCompetencyPrs.opinante.lider;
+        delete this.OpinionCompetencyPrs.opinante.nombresPrs;
+        delete this.OpinionCompetencyPrs.opinante.nacimientoPrs;
+        delete this.OpinionCompetencyPrs.opinante.fechaOpi;
+        delete this.OpinionCompetencyPrs.opinante.organizacion.abrevOrg;
+        delete this.OpinionCompetencyPrs.opinante.status;
+
     }
 
     loadComp() {
@@ -96,30 +123,38 @@ export class CompetencyAssessmentComponent implements OnInit {
     //funcio del boton enviar
     // -------------------------------------
     onEnviar() {
-        let valid
         if (!this.validCompetencia) {
+            this.loadCompetencia = true;
+            const opinionComp: OpinionCompetency[] = [];
 
             this.competencias.forEach(unaCompetencia => {
                 if (unaCompetencia.numberStar) {
-
-                    // const json = {
-                    //     competencia:,
-                    //     estrellasOpiCom:,
-                    //     id:,
-                    //     opinion:,
-                    //     status: ,
-                    // }
-
-                    // this.opinionsCompetencyService.updateOpinionCompetencias().subscribe(
-                    //     (next) => {
-
-                    //     },
-                    //     error => {
-
-                    //     }
-                    // );
+                    delete unaCompetencia.stars;
+                    opinionComp.push({
+                        competencia: unaCompetencia,
+                        estrellasOpiCom: unaCompetencia.numberStar,
+                        opinion: {},
+                    });
                 }
             });
+
+
+
+            const json: Opiniones = {
+                ...this.OpinionCompetencyPrs,
+                opinionesCompetencias: opinionComp,
+            }
+
+            console.log(this.OpinionCompetencyPrs);
+            this.opinionService.newOpinion(json).subscribe(
+                (next) => {
+                    console.log("trabo bien");
+
+                },
+                error => {
+                    console.log(error);
+                }
+            );
 
         } else {
 
@@ -128,7 +163,7 @@ export class CompetencyAssessmentComponent implements OnInit {
     }
 
     // ----------------------------------------------------------------
-    // metodo para obtener las competencias y validar si estan vigentes 
+    // metodo para obtener las competencias (y validar si estan vigentes //lo comentado)
     // ----------------------------------------------------------------
     getAllCompetenciaOpinions() {
         this.competencias = [];
@@ -137,64 +172,94 @@ export class CompetencyAssessmentComponent implements OnInit {
                 if (next) {
                     this.competencia = next;
 
-                    this.competencyService.getAllVigentes().subscribe(
-                        (resp: CompetencyOpinions[]) => {
+                    this.competencias.push({
+                        ...next[0].competencia1,
+                        stars: ['white', 'white', 'white', 'white', 'white', 'white'],
+                        numberStar: null
+                    });
+                    this.competencias.push({
+                        ...next[0].competencia2,
+                        stars: ['white', 'white', 'white', 'white', 'white', 'white'],
+                        numberStar: null
+                    });
+                    this.competencias.push({
+                        ...next[0].competencia3,
+                        stars: ['white', 'white', 'white', 'white', 'white', 'white'],
+                        numberStar: null
+                    });
+                    this.competencias.push({
+                        ...next[0].competencia4,
+                        stars: ['white', 'white', 'white', 'white', 'white', 'white'],
+                        numberStar: null
+                    });
+                    this.competencias.push({
+                        ...next[0].competencia5,
+                        stars: ['white', 'white', 'white', 'white', 'white', 'white'],
+                        numberStar: null
+                    });
+                    this.competencias.push({
+                        ...next[0].competencia6,
+                        stars: ['white', 'white', 'white', 'white', 'white', 'white'],
+                        numberStar: null
+                    });
 
-                            resp.forEach(unResp => {
-                                if (unResp.competencia1.status == "ACTIVE") {
-                                    this.competencias.push({
-                                        ...next[0].competencia1,
-                                        stars: ['white', 'white', 'white', 'white', 'white', 'white'],
-                                        numberStar: null
-                                    });
-                                }
+                    // this.competencyService.getAllVigentes().subscribe(
+                    //     (resp: CompetencyOpinions[]) => {
 
-                                if (unResp.competencia2.status == "ACTIVE") {
-                                    this.competencias.push({
-                                        ...next[0].competencia2,
-                                        stars: ['white', 'white', 'white', 'white', 'white', 'white'],
-                                        numberStar: null
-                                    });
-                                }
+                    //         resp.forEach(unResp => {
+                    //             if (unResp.competencia1.status == "ACTIVE") {
+                    //                 this.competencias.push({
+                    //                     ...next[0].competencia1,
+                    //                     stars: ['white', 'white', 'white', 'white', 'white', 'white'],
+                    //                     numberStar: null
+                    //                 });
+                    //             }
+                    //             if (unResp.competencia2.status == "ACTIVE") {
+                    //                 this.competencias.push({
+                    //                     ...next[0].competencia2,
+                    //                     stars: ['white', 'white', 'white', 'white', 'white', 'white'],
+                    //                     numberStar: null
+                    //                 });
+                    //             }
 
-                                if (unResp.competencia3.status == "ACTIVE") {
-                                    this.competencias.push({
-                                        ...next[0].competencia3,
-                                        stars: ['white', 'white', 'white', 'white', 'white', 'white'],
-                                        numberStar: null
-                                    });
-                                }
+                    //             if (unResp.competencia3.status == "ACTIVE") {
+                    //                 this.competencias.push({
+                    //                     ...next[0].competencia3,
+                    //                     stars: ['white', 'white', 'white', 'white', 'white', 'white'],
+                    //                     numberStar: null
+                    //                 });
+                    //             }
 
-                                if (unResp.competencia4.status == "ACTIVE") {
-                                    this.competencias.push({
-                                        ...next[0].competencia4,
-                                        stars: ['white', 'white', 'white', 'white', 'white', 'white'],
-                                        numberStar: null
-                                    });
-                                }
+                    //             if (unResp.competencia4.status == "ACTIVE") {
+                    //                 this.competencias.push({
+                    //                     ...next[0].competencia4,
+                    //                     stars: ['white', 'white', 'white', 'white', 'white', 'white'],
+                    //                     numberStar: null
+                    //                 });
+                    //             }
 
-                                if (unResp.competencia5.status == "ACTIVE") {
-                                    this.competencias.push({
-                                        ...next[0].competencia5,
-                                        stars: ['white', 'white', 'white', 'white', 'white', 'white'],
-                                        numberStar: null
-                                    });
-                                }
+                    //             if (unResp.competencia5.status == "ACTIVE") {
+                    //                 this.competencias.push({
+                    //                     ...next[0].competencia5,
+                    //                     stars: ['white', 'white', 'white', 'white', 'white', 'white'],
+                    //                     numberStar: null
+                    //                 });
+                    //             }
 
-                                if (unResp.competencia6.status == "ACTIVE") {
-                                    this.competencias.push({
-                                        ...next[0].competencia6,
-                                        stars: ['white', 'white', 'white', 'white', 'white', 'white'],
-                                        numberStar: null
-                                    });
-                                }
+                    //             if (unResp.competencia6.status == "ACTIVE") {
+                    //                 this.competencias.push({
+                    //                     ...next[0].competencia6,
+                    //                     stars: ['white', 'white', 'white', 'white', 'white', 'white'],
+                    //                     numberStar: null
+                    //                 });
+                    //             }
 
-                            })
+                    //         })
 
-                        }, error => {
+                    //     }, error => {
 
-                        }
-                    )
+                    //     }
+                    // )
                 }
                 this.loadCompetencia = false;
             }, error => {

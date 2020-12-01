@@ -10,6 +10,23 @@
 
         <Image src="~/fonts/5ef7abae7570fd1c70f4a92af72f66d6.gif" width="50%" class="fab"></Image>
 
+        <!-- <label style="color: white; font-weight: bold; font-size: 22; text-align: center;" text="¡Bienvenid@ !"></label> -->
+
+        <StackLayout width="100%" orientation="horizontal" horizontalAlignment="center" verticalAlignment="middle">
+            <label style="font-size: 22; font-weight: bold; color: white;" textAlignment="center" text="Bienvenid@ "></label>
+
+            <label style="color: #ffc000; font-size: 22; font-weight: bold;" text="{{personaLogueada?.nombresPrs}}">
+            </label>
+        </StackLayout>
+        <StackLayout orientation="horizontal" horizontalAlignment="center" verticalAlignment="middle">
+            <Image width="40%" id="imagePrs" style="margin-left: 7;" src="{{personaLogueadaImg}}"></Image>
+
+            <FlexboxLayout flexDirection="column" width="60%" style="margin: 0 auto; text-align: center; align-items: center;">
+                <label textWrap="true" id="textHeaderApe" text="{{personaLogueada?.apellidosPrs}}"></label>
+                <label textWrap="true" id="textHeaderPuesto" style="margin: auto auto" text="Puesto: {{personaLogueada?.puesto.descPue}}"></label>
+            </FlexboxLayout>
+        </StackLayout>
+
         <FlexboxLayout flexDirection="column" justifyContent="space-around" alignItems="stretch">
             <StackLayout id="btn" orientation="horizontal" horizontalAlignment="center" verticalAlignment="center" (tap)="onMiProfile()">
                 <Image style="margin-left: -15;" src="font://&#xf406;" width="20% " height="40% " class="fas "></Image>

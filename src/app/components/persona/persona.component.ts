@@ -15,6 +15,7 @@ import { ModalContextComponent } from "./modal-context/modal-context.component";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { getString } from "@nativescript/core/application-settings";
 import { CommonService } from "@services/common.service";
+import { OpinionsService } from "@services/opinions.service";
 @Component({
     selector: "ns-persona",
     templateUrl: "./persona.component.html",
@@ -50,7 +51,8 @@ export class PersonaComponent implements OnInit {
         private vcRef: ViewContainerRef,
         private activateRoute: ActivatedRoute,
         private personsService: PersonsService,
-        private commonService: CommonService
+        private commonService: CommonService,
+        private opinionService: OpinionsService
     ) {
         this.initArrayStar();
         this.spinner = true;
@@ -121,19 +123,10 @@ export class PersonaComponent implements OnInit {
         this.validField();
         if (!this.validCtx && !this.validStar) {
             this.spinner = true;
-            let fechaA = new Date();
 
-            let jsonCtx = {
-                comentarioOpi: this.newDescirpcion,
-                contexto: this.selectCtx,
-                estrellasOpi: this.selectedStar,
-                fechaOpi: fechaA,
-                id: null,
-                opinado: this.people,
-                opinante: this.peopleLogin[0],
-            };
+            let jsonCtx = this.getDataOpinions();
 
-            this.personsService.updateOpinionPeople(jsonCtx).subscribe(
+            this.opinionService.newOpinion(jsonCtx).subscribe(
                 (resp) => {
                     this.snackbar
                         .action({
@@ -243,6 +236,7 @@ export class PersonaComponent implements OnInit {
 
     //metodo para abrir opciones avanzadas donde aparecera las competencias a evaluar
     advancedOptions() {
+        this.getDataOpinions();
         this.router.navigate(["/competency/", this.idPersonSelect]);
     }
 
@@ -253,5 +247,27 @@ export class PersonaComponent implements OnInit {
 
     get canGoBack() {
         return this.routerExtensions.canGoBack();
+    }
+
+
+    // -------------------------------------------------------------------
+    //  metodo para armar el json para guardar o enviar los datos a guardar
+    // -------------------------------------------------------------------
+    getDataOpinions() {
+        let fechaA = new Date();
+
+        let jsonCtx = {
+            comentarioOpi: this.newDescirpcion,
+            contexto: this.selectCtx,
+            estrellasOpi: this.selectedStar,
+            fechaOpi: fechaA,
+            id: null,
+            opinado: this.people,
+            opinante: this.peopleLogin[0],
+        };
+
+        this.commonService.setOpinionCompetencyPrs(jsonCtx);
+
+        return jsonCtx;
     }
 }

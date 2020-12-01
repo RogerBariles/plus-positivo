@@ -7,6 +7,7 @@ import { AuthenticationService } from "../../../services/authentication.service"
 import { SnackBar } from "@nativescript-community/ui-material-snackbar";
 import { PersonsService } from "../../../services/persons.service";
 import { People } from "src/app/models/people";
+import { CommonService } from "@services/common.service";
 @Component({
     selector: "ns-login",
     templateUrl: "./login.component.html",
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
     constructor(
         private peopleService: PersonsService,
         private authService: AuthenticationService,
-        private router: Router
+        private router: Router,
+        private commonService: CommonService,
     ) {
         this.spinner = false;
         this.validUser = false;
@@ -104,6 +106,7 @@ export class LoginComponent implements OnInit {
                 (resp: People[]) => {
                     this.spinner = false;
                     if (resp.length > 0) {
+                        this.commonService.setPersonaLogueada(resp);
                         this.router.navigate(["/home/", resp[0].id]);
                     } else {
                         this.showSimpleSnackbar(msj);

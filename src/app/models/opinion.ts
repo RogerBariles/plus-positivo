@@ -1,4 +1,4 @@
-import { Compentency } from "@models/competency";
+import { Compentency, OpinionCompetency } from "@models/competency";
 import { People } from "@models/people";
 
 export class Context {
@@ -30,7 +30,9 @@ export class Opiniones {
     id: number;
     opinado: People;
     opinante: People;
-    resultados: Result[];
+    opinionesCompetencias?: OpinionCompetency[];
+    resultados?: Result[];
+
 }
 
 export class Result {

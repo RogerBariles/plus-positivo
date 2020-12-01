@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { take } from "rxjs/operators";
 import { environment } from "@environments/environment";
+import { Opiniones } from "@models/opinion";
 
 @Injectable({ providedIn: "root" })
 export class OpinionsService {
@@ -34,5 +35,9 @@ export class OpinionsService {
         return this.http
             .get(environment.apiUrl + this.endPoint, { params: param })
             .pipe(take(1));
+    }
+
+    newOpinion(body) {
+        return this.http.post(environment.apiUrl + this.endPoint + '/nueva', body).pipe(take(1));
     }
 }
