@@ -65,7 +65,7 @@ export class PersonaComponent implements OnInit {
 
     ngOnInit() {
         //limpiamos las variables de common service para luego guardar nuevos datos
-        this.commonService.clean();
+        //this.commonService.clean();
         this.peopleLoginFun();
         this.getPeopleSelect();
         this.getAllContext();
@@ -77,7 +77,7 @@ export class PersonaComponent implements OnInit {
             .getPeopleByCondigoPrs(peolpe)
             .subscribe((resp: People) => {
                 this.peopleLogin = resp;
-                this.commonService.personaLogueada = resp;
+                // this.commonService.personaLogueada = resp;
             });
     }
 
@@ -94,7 +94,7 @@ export class PersonaComponent implements OnInit {
         this.personsService
             .getPeopleById(this.idPersonSelect)
             .subscribe((resp: People) => {
-                this.commonService.personaAEvaluar = resp;
+                this.commonService.setPersonaAEvaluar(resp);
                 this.people = resp;
                 this.peopleImg =
                     "data:" +

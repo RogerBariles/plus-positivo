@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { RouterExtensions } from '@nativescript/angular';
+import { SnackBar } from "@nativescript-community/ui-material-snackbar";
 
 import { Compentency, CompetencyOpinions } from '@models/competency';
 import { People } from '@models/people';
@@ -30,10 +31,13 @@ export class CompetencyAssessmentComponent implements OnInit {
     competencia: CompetencyOpinions;
     spinner: boolean;
     idUserEvaluar: number;
+    idUserLogueado: number;
     stars = [1, 2, 3, 4, 5];
+    snackbar = new SnackBar();
 
     constructor(
-        private router: RouterExtensions,
+        private routerExtensions: RouterExtensions,
+        private router: Router,
         private routerActivated: ActivatedRoute,
         private opinionService: OpinionsService,
         private commonService: CommonService,
@@ -53,6 +57,8 @@ export class CompetencyAssessmentComponent implements OnInit {
         this.colorStar(0);
         this.spinner = false;
         this.OpinionCompetencyPrs = this.commonService.getOpinionCompetencyPrs();
+
+        this.idUserLogueado = this.OpinionCompetencyPrs.opinante.id;
 
         delete this.OpinionCompetencyPrs.contexto.abrevCtx;
         delete this.OpinionCompetencyPrs.contexto.tipo.abrevTpCtx;
@@ -89,15 +95,15 @@ export class CompetencyAssessmentComponent implements OnInit {
         this.peopleEvaluatedImg = "data:" + this.peopleEvaluated.imagenPrsContentType + ";base64," + this.peopleEvaluated.imagenPrs;
     }
 
-    get canGoBack() {
-        return this.router.canGoBack();
-    }
 
     // ------------------------------------------------------------
     //correspondiente al boton de regreso (lado izquierdo del actionBar)
     // ------------------------------------------------------------
     onGoBack() {
-        this.router.backToPreviousPage();
+        this.routerExtensions.backToPreviousPage();
+    }
+    get canGoBack() {
+        return this.routerExtensions.canGoBack();
     }
 
 
@@ -129,7 +135,6 @@ export class CompetencyAssessmentComponent implements OnInit {
 
             this.competencias.forEach(unaCompetencia => {
                 if (unaCompetencia.numberStar) {
-                    delete unaCompetencia.stars;
                     opinionComp.push({
                         competencia: unaCompetencia,
                         estrellasOpiCom: unaCompetencia.numberStar,
@@ -138,18 +143,27 @@ export class CompetencyAssessmentComponent implements OnInit {
                 }
             });
 
-
-
             const json: Opiniones = {
                 ...this.OpinionCompetencyPrs,
                 opinionesCompetencias: opinionComp,
             }
 
-            console.log(this.OpinionCompetencyPrs);
             this.opinionService.newOpinion(json).subscribe(
                 (next) => {
-                    console.log("trabo bien");
+                    this.competencias = [];
 
+                    this.snackbar
+                        .action({
+                            message: `Datos guardados correctamente`,
+                            textColor: "white",
+                            actionTextColor: "white",
+                            backgroundColor: "green",
+                            actionText: "Exitó",
+                            hideDelay: 2000,
+                        })
+                        .then((resp) => {
+                            this.router.navigate(['/home/', this.idUserLogueado]);
+                        });
                 },
                 error => {
                     console.log(error);

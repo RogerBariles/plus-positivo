@@ -37,4 +37,12 @@ export class CommonService {
         return this.personaLogueada;
     }
 
+    setPersonaAEvaluar(personaAEvaluar) {
+        this.personaAEvaluar = personaAEvaluar;
+    }
+
+    getPersonaAEvaluar() {
+        return this.personaAEvaluar;
+    }
+
 }

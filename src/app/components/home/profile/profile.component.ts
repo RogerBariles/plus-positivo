@@ -6,6 +6,7 @@ import { ActivatedRoute } from "@angular/router";
 import { OpinionsService } from "@services/opinions.service";
 import { Promedios } from "@models/opinion";
 import { RouterExtensions } from "@nativescript/angular";
+import { CommonService } from "@services/common.service";
 import { SnackBar } from "@nativescript-community/ui-material-snackbar";
 
 @Component({
@@ -28,6 +29,7 @@ export class ProfileComponent implements OnInit {
         private routerActivate: ActivatedRoute,
         private personaService: PersonsService,
         private opinionsService: OpinionsService,
+        private commonService: CommonService,
         private router: RouterExtensions
     ) {
         this.promPeople = new Promedios();
@@ -53,29 +55,31 @@ export class ProfileComponent implements OnInit {
     }
 
 
-    // ------------------------------------
-    // buscamos persona logueada por el id
-    // ------------------------------------
+    // -----------------------------------------------------------
+    // buscamos persona logueada que lo guardamos en commonService
+    // -----------------------------------------------------------
     getPersons() {
-        this.personaService
-            .getPeopleById(this.idUser)
-            .subscribe((next: People) => {
-                this.peopleProfile = next;
-                //cuando obtenemos la informacion completa , pasamos a obtener los promedios correspondientes
-                this.changePromedios(this.peopleProfile.codigoPrs);
-            }, error => {
-                this.snackbar
-                    .action({
-                        message: `Error al obtener usuario`,
-                        textColor: "white",
-                        actionTextColor: "black",
-                        backgroundColor: "red",
-                        hideDelay: 2000,
-                    })
-                    .then((resp) => {
-                        this.spinner = false;
-                    });
-            });
+
+        this.peopleProfile = this.commonService.getPersonaLogueada();
+        this.peopleProfile = this.peopleProfile[0];
+
+        if (!this.peopleProfile) {
+            this.snackbar
+                .action({
+                    message: `Error al obtener usuario`,
+                    textColor: "white",
+                    actionTextColor: "black",
+                    backgroundColor: "red",
+                    hideDelay: 2000,
+                })
+                .then((resp) => {
+                    this.spinner = false;
+                });
+        } else {
+            this.spinner = false;
+            this.changePromedios(this.peopleProfile.codigoPrs);
+        }
+
     }
 
     // ---------------------------------------------------------------------------

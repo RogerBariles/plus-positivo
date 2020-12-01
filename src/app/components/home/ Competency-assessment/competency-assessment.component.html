@@ -47,7 +47,7 @@
         </StackLayout>
 
         <Label *ngIf="validCompetencia" height="5%" id="txtEvaluar" text="Debe evaluar alguna competencia."></Label>
-        <Button height="10%" id="btnEnviar" text="Enviar" (tap)="onEnviar()"></Button>
+        <Button *ngIf="!loadCompetencia" height="10%" id="btnEnviar" text="Enviar" (tap)="onEnviar()"></Button>
 
     </FlexboxLayout>
 
