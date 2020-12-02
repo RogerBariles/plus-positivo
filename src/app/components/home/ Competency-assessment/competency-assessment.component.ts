@@ -43,6 +43,7 @@ export class CompetencyAssessmentComponent implements OnInit {
         private commonService: CommonService,
         private competencyService: CompetencyService,
     ) {
+        this.OpinionCompetencyPrs = {};
         this.validCompetencia = true;
         this.loadCompetencia = true;
         this.spinner = true;
@@ -56,32 +57,31 @@ export class CompetencyAssessmentComponent implements OnInit {
 
         this.colorStar(0);
         this.spinner = false;
-        this.OpinionCompetencyPrs = this.commonService.getOpinionCompetencyPrs();
+        let a = this.commonService.getOpinionCompetencyPrs();
 
-        this.idUserLogueado = this.OpinionCompetencyPrs.opinante.id;
+        this.idUserLogueado = a.opinante.id;
 
-        delete this.OpinionCompetencyPrs.contexto.abrevCtx;
-        delete this.OpinionCompetencyPrs.contexto.tipo.abrevTpCtx;
-        delete this.OpinionCompetencyPrs.contexto.status;
+        delete a.contexto.abrevCtx;
+        delete a.contexto.tipo.abrevTpCtx;
+        delete a.contexto.status;
 
-        delete this.OpinionCompetencyPrs.opinado.imagenPrs;
-        delete this.OpinionCompetencyPrs.opinado.imagenPrsContentType;
-        delete this.OpinionCompetencyPrs.opinado.lider;
-        delete this.OpinionCompetencyPrs.opinado.nombresPrs;
-        delete this.OpinionCompetencyPrs.opinado.nacimientoPrs;
-        delete this.OpinionCompetencyPrs.opinado.fechaOpi;
-        delete this.OpinionCompetencyPrs.opinado.organizacion.abrevOrg;
-        delete this.OpinionCompetencyPrs.opinado.status;
+        // delete a.opinado.imagenPrs;
+        // delete a.opinado.imagenPrsContentType;
+        // delete a.opinado.lider;
+        // delete a.opinado.nacimientoPrs;
+        // delete a.opinado.fechaOpi;
+        // delete a.opinado.organizacion.abrevOrg;
+        // delete a.opinado.status;
 
-        delete this.OpinionCompetencyPrs.opinante.imagenPrs;
-        delete this.OpinionCompetencyPrs.opinante.imagenPrsContentType;
-        delete this.OpinionCompetencyPrs.opinante.lider;
-        delete this.OpinionCompetencyPrs.opinante.nombresPrs;
-        delete this.OpinionCompetencyPrs.opinante.nacimientoPrs;
-        delete this.OpinionCompetencyPrs.opinante.fechaOpi;
-        delete this.OpinionCompetencyPrs.opinante.organizacion.abrevOrg;
-        delete this.OpinionCompetencyPrs.opinante.status;
+        delete a.opinante.imagenPrs;
+        delete a.opinante.imagenPrsContentType;
+        delete a.opinante.lider;
+        delete a.opinante.nacimientoPrs;
+        delete a.opinante.fechaOpi;
+        delete a.opinante.organizacion.abrevOrg;
+        delete a.opinante.status;
 
+        this.OpinionCompetencyPrs = a;
     }
 
     loadComp() {
@@ -91,7 +91,8 @@ export class CompetencyAssessmentComponent implements OnInit {
     //obtenemos datos de la persona a evaluar desde Common service para visualizar los datos
     // ------------------------------------------------------------
     getPersonaEvaluada() {
-        this.peopleEvaluated = this.commonService.personaAEvaluar;
+        this.peopleEvaluated = this.commonService.getPersonaAEvaluar();
+        this.peopleEvaluated = this.peopleEvaluated[0];
         this.peopleEvaluatedImg = "data:" + this.peopleEvaluated.imagenPrsContentType + ";base64," + this.peopleEvaluated.imagenPrs;
     }
 

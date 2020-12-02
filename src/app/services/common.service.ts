@@ -8,7 +8,7 @@ export class CommonService {
     personaAEvaluar: People;
     personaLogueada: People;
 
-    opinionCompetencyPrs: Opiniones;
+    opinionCompetencyPrs: any;
 
     constructor() { }
 
@@ -18,11 +18,7 @@ export class CommonService {
     }
 
     setOpinionCompetencyPrs(opinionCompPrs) {
-
-        if (opinionCompPrs) {
-
-            this.opinionCompetencyPrs = opinionCompPrs;
-        }
+        this.opinionCompetencyPrs = opinionCompPrs;
     }
 
     getOpinionCompetencyPrs() {

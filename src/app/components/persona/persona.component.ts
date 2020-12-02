@@ -94,7 +94,9 @@ export class PersonaComponent implements OnInit {
         this.personsService
             .getPeopleById(this.idPersonSelect)
             .subscribe((resp: People) => {
-                this.commonService.setPersonaAEvaluar(resp);
+                let aux = [];
+                aux.push(resp);
+                this.commonService.setPersonaAEvaluar(aux);
                 this.people = resp;
                 this.peopleImg =
                     "data:" +
